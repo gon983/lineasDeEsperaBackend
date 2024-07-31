@@ -1,12 +1,12 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 
-@app.route('/simulacion/<int:cantidadLineasASimular>/<int:duracionSimulacion>/<int:lineaInicioVisualizacion>'
-        '/<int:lineaFinVisualizacion>/<int:cantidadSurtidores>/<int:cantidadEmpleadosGomeria>/<int:cantidadEmpleadosVentaAccesorios>'
-        '/<float:llegadaClientesMedia>/<float:llegadaClientesDesviacion>/<float:aDuracionCargaCombustible>/<float:bDuracionCargaCombustible>'
-        '/<float:aDuracionAtGomeria>/<float:bDuracionAtGomeria>/<float:aDuracionVentaAccesorios>/<float:bDuracionVentaAccesorios>', methods=['GET', 'POST'])
+
+@app.route('/simulacion/<int:cantidadLineasASimular>/<int:duracionSimulacion>/<int:lineaInicioVisualizacion>/<int:lineaFinVisualizacion>/<int:cantidadSurtidores>/<int:cantidadEmpleadosGomeria>/<int:cantidadEmpleadosVentaAccesorios>/<int:llegadaClientesMedia>/<int:llegadaClientesDesviacion>/<int:aDuracionCargaCombustible>/<int:bDuracionCargaCombustible>/<int:aDuracionAtGomeria>/<int:bDuracionAtGomeria>/<int:aDuracionVentaAccesorios>/<int:bDuracionVentaAccesorios>', methods=['GET', 'POST'])
 def simulacion(cantidadLineasASimular, duracionSimulacion, lineaInicioVisualizacion,
             lineaFinVisualizacion, cantidadSurtidores, cantidadEmpleadosGomeria, cantidadEmpleadosVentaAccesorios,
             llegadaClientesMedia, llegadaClientesDesviacion, aDuracionCargaCombustible, bDuracionCargaCombustible,
@@ -17,17 +17,6 @@ def simulacion(cantidadLineasASimular, duracionSimulacion, lineaInicioVisualizac
         "duracionSimulacion": duracionSimulacion,
         "lineaInicioVisualizacion": lineaInicioVisualizacion,
         "lineaFinVisualizacion": lineaFinVisualizacion,
-        "cantidadSurtidores": cantidadSurtidores,
-        "cantidadEmpleadosGomeria": cantidadEmpleadosGomeria,
-        "cantidadEmpleadosVentaAccesorios": cantidadEmpleadosVentaAccesorios,
-        "llegadaClientesMedia": llegadaClientesMedia,
-        "llegadaClientesDesviacion": llegadaClientesDesviacion,
-        "aDuracionCargaCombustible": aDuracionCargaCombustible,
-        "bDuracionCargaCombustible": bDuracionCargaCombustible,
-        "aDuracionAtGomeria": aDuracionAtGomeria,
-        "bDuracionAtGomeria": bDuracionAtGomeria,
-        "aDuracionVentaAccesorios": aDuracionVentaAccesorios,
-        "bDuracionVentaAccesorios": bDuracionVentaAccesorios,
     }
 
     # Aquí puedes agregar la lógica de simulación utilizando los parámetros
