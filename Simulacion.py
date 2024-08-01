@@ -29,6 +29,7 @@ class Simulacion:
         vFila += self.clientes.vectorizarLlegada()
         # Despues va la Estacion...
         vFila += self.estacion.vectorizarEstacion()
+        return vFila
 
 
     def generarTabla(self):
