@@ -34,7 +34,7 @@ class Simulacion:
 
     def generarTabla(self):
         fila = self.generarFila()
-        return { "simulacion": fila}
+        return { "simulacion": [fila]}
 
 
 
