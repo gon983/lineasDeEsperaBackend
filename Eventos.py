@@ -11,16 +11,17 @@ class Fin(Evento):
     def __init__(self, a, b):
         self.a = a
         self.b = b
-        self.proximaLlegada, self.rnd = self.generarProximoFin()
+        self.rnd = ""
+        self.proximoFin = ""
 
 
     def generarProximoFin(self):
-        rnd = random.random()
-        proximoFin = self.a + (self.b-self.a)* rnd
-        return rnd, proximoFin
+        self.rnd = random.random()
+        self.proximoFin = self.a + (self.b-self.a)* self.rnd
+        
     
     def vectorizar(self):
-        return [self.rnd, self.proximaLlegada]
+        return [self.rnd, self.proximoFin]
     
 
 
