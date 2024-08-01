@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
-from random import random
-from math import math
+import random
+import math
 
 class Evento(ABC):
     @abstractmethod
