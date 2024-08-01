@@ -8,6 +8,6 @@ class Estacion:
                 aDuracionAtGomeria, bDuracionAtGomeria, 
                 aDuracionVentaAccesorios, bDuracionVentaAccesorios):
         
-        self.surtidores = TipoServidor(cantidadSurtidores, aDuracionCargaCombustible, bDuracionCargaCombustible )
-        self.empleadosGomeria = TipoServidor(cantidadEmpleadosGomeria, aDuracionAtGomeria,  bDuracionAtGomeria )
-        self.empleadosVentaAccesorios = TipoServidor(cantidadEmpleadosVentaAccesorios, aDuracionVentaAccesorios, bDuracionVentaAccesorios)
+        self.surtidores = TipoServidor("surtidor", cantidadSurtidores, aDuracionCargaCombustible, bDuracionCargaCombustible )
+        self.empleadosGomeria = TipoServidor("empleado gomeria", cantidadEmpleadosGomeria, aDuracionAtGomeria,  bDuracionAtGomeria )
+        self.empleadosVentaAccesorios = TipoServidor("e. venta accesorios", cantidadEmpleadosVentaAccesorios, aDuracionVentaAccesorios, bDuracionVentaAccesorios)
