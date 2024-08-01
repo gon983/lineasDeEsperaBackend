@@ -5,3 +5,9 @@ class Servidor:
         self.numeroServidor = numeroServidor
         self.estado = "libre"
         self.finAtencion = Fin(a,b)
+
+    
+    def vectorizar(self):
+        v = [self.estado]
+        v += self.finAtencion.vectorizar()
+

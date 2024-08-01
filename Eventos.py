@@ -11,7 +11,7 @@ class Fin(Evento):
     def __init__(self, a, b):
         self.a = a
         self.b = b
-        self.proximaLlegada, self.rnd = self.generarProximaLlegada()
+        self.proximaLlegada, self.rnd = self.generarProximoFin()
 
 
     def generarProximoFin(self):
@@ -19,6 +19,8 @@ class Fin(Evento):
         proximoFin = self.a + (self.b-self.a)* rnd
         return rnd, proximoFin
     
+    def vectorizar(self):
+        return [self.rnd, self.proximaLlegada]
     
 
 
@@ -32,12 +34,14 @@ class Fin(Evento):
 
 
 class Llegada(Evento):
-    def __init__(self, normal, media):
-        self.normal = normal
+    def __init__(self, media, desviacion):
         self.media = media
+        self.desviacion = desviacion
+        self.proximaLlegada = None
         self.primerRndUsado = False
         self.vRnd = []
         self.crearVrnd()
+        self.generarProximaLlegada()
 
     def crearVrnd(self):
         v = []
@@ -46,7 +50,9 @@ class Llegada(Evento):
         v.append(r1)
         v.append(r2)
         self.vRnd = v
-    
+
+    def vectorizar(self):
+        return [self.vRnd , self.proximaLlegada]
 
     def procesarEvento(self):
         print(f"Fin procesado a las {self.tiempo} hacia {self.destino}")
@@ -57,7 +63,7 @@ class Llegada(Evento):
             return (math.sqrt(-2 * math.log(self.vRnd[0], math.e)) * math.cos(2 * math.pi * self.vRnd[1])) * self.desviacion + self.media
         
         else:
-            x2 = (math.sqrt(-2 * math.log(self.vRnd[0], math.e)) * math.sin(2 * math.pi * self.vRnd[1]))* self.desviacvRion + self.media 
+            x2 = (math.sqrt(-2 * math.log(self.vRnd[0], math.e)) * math.sin(2 * math.pi * self.vRnd[1]))* self.desviacion + self.media 
             self.crearVrnd()
             self.primerRndUsado = False
 

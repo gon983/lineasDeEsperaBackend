@@ -8,3 +8,10 @@ class TipoServidor:
         for i in range(cantidadServidores):
             servidor = Servidor(i+1,a,b)
             self.vTipoServidor.append(servidor)
+        self.cola = 0
+
+    def vectorizar(self):
+        for servidor in self.vTipoServidor:
+            v += self.vTipoServidor[servidor].vectorizar()
+        return v + [self.cola]
+

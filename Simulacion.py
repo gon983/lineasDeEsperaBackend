@@ -27,6 +27,8 @@ class Simulacion:
         vFila = [self.reloj, self.eventoActual]
         # Despues va la llegada de clientes
         vFila += self.clientes.vectorizarLlegada()
+        # Despues va la Estacion...
+        vFila += self.estacion.vectorizarEstacion()
 
 
     def generarTabla():
