@@ -10,4 +10,5 @@ class Servidor:
     def vectorizar(self):
         v = [self.estado]
         v += self.finAtencion.vectorizar()
+        return v
 

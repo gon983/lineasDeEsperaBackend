@@ -31,7 +31,9 @@ class Simulacion:
         vFila += self.estacion.vectorizarEstacion()
 
 
-    def generarTabla():
-        pass
+    def generarTabla(self):
+        fila = self.generarFila()
+        return { "simulacion": fila}
+
 
 

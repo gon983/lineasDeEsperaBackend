@@ -11,7 +11,10 @@ class TipoServidor:
         self.cola = 0
 
     def vectorizar(self):
+        v = []
         for servidor in self.vTipoServidor:
-            v += self.vTipoServidor[servidor].vectorizar()
-        return v + [self.cola]
+            vAux = servidor.vectorizar()
+            v += vAux
+        v += [self.cola]
+        return v
 
