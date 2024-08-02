@@ -35,6 +35,30 @@ class Simulacion:
     def generarTabla(self):
         fila = self.generarFila()
         return { "simulacion": [fila]}
+    
+    def simular(self):
+        for i in range(self.cantidadLineasASimular):
+            self.reloj, self.eventoActual = self.procesarEvento()
+            
+
+
+    def procesarEvento(self): #Aca deberia haber una interfaz ??? Tendria q hacer todo de vuelta
+        relojA, fin = self.estacion.obtenerProximoEvento()
+        relojB , llegada= self.clientes.getProximaLlegada()
+        if relojA > relojB:
+            self.procesarFin(relojA, fin)
+        else:
+            self.procesarLlegada(relojB, llegada)
+
+    
+    def procesarFin(self):
+        pass
+
+
+
+    def procesarFin(self):
+        pass
+
 
 
 

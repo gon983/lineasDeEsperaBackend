@@ -12,12 +12,15 @@ class Fin(Evento):
         self.a = a
         self.b = b
         self.rnd = ""
-        self.proximoFin = ""
+        self.tiempoAtencion = ""
+        self.proximoFin = 999
 
 
-    def generarProximoFin(self):
+    def generarProximoFin(self, reloj):
         self.rnd = round(random.random(),4)
-        self.proximoFin = self.a + (self.b-self.a)* self.rnd
+        self.tiempoAtencion = self.a + (self.b-self.a)* self.rnd
+        self.proximoFin = reloj + self.tiempoAtencion
+
         
     
     def vectorizar(self):
@@ -27,6 +30,9 @@ class Fin(Evento):
 
     def procesarEvento(self):
         print(f"Llegada procesada a las {self.tiempo} desde {self.origen}")
+
+    def getProxFin(self):
+        return self.proximoFin
 
     
 
@@ -41,7 +47,8 @@ class Llegada(Evento):
         self.primerRndUsado = False
         self.vRnd = []
         self.crearVrnd()
-        self.proximaLlegada = self.generarProximaLlegada()
+        self.tiempoEntreLlegadas = self.generarProximaLlegada()
+        self.proximaLlegada = self.tiempoEntreLlegadas
 
     def crearVrnd(self):
         v = []
@@ -57,16 +64,20 @@ class Llegada(Evento):
     def procesarEvento(self):
         print(f"Fin procesado a las {self.tiempo} hacia {self.destino}")
 
-    def generarProximaLlegada(self):
+    def generarProximaLlegada(self, reloj):
         if self.primerRndUsado == False:
             self.primerRndUsado = True
             x1 = round((math.sqrt(-2 * math.log(self.vRnd[0], math.e)) * math.cos(2 * math.pi * self.vRnd[1])) * self.desviacion + self.media,4)
+            self.tiempoEntreLlegadas = x1
+            self.proximaLlegada = self.tiempoEntreLlegadas + reloj
             return x1
         
         else:
             x2 = round((math.sqrt(-2 * math.log(self.vRnd[0], math.e)) * math.sin(2 * math.pi * self.vRnd[1]))* self.desviacion + self.media,2) 
             self.crearVrnd()
             self.primerRndUsado = False
+            self.tiempoEntreLlegadas = x2
+            self.proximaLlegada = self.tiempoEntreLlegadas + reloj
 
             return x2  
 

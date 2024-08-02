@@ -11,4 +11,7 @@ class Servidor:
         v = [self.estado]
         v += self.finAtencion.vectorizar()
         return v
+    
+    def getProxFin(self):
+        self.finAtencion.getProxFin()
 

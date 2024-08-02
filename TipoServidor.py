@@ -17,4 +17,14 @@ class TipoServidor:
             v += vAux
         v += [self.cola]
         return v
+    
+    def getProxFin(self):
+        v = []
+        for servidor in self.vTipoServidor:
+            v.append(servidor.getProxFin())
+        tMin = min(v)
+        for servidor in self.vTipoServidor:
+            if servidor.getProxFin() == tMin:
+                return tMin
+
 
