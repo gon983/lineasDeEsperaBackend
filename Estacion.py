@@ -20,7 +20,7 @@ class Estacion:
         return x + y + z
     
     def tenesServidorDeEsteTipoLibre(self, nombreTipoServidor):
-        nombreServidor, numero = None, None
+        nombreServidor, numero = False, False
         if nombreTipoServidor == self.surtidores.getNombre():
             nombreServidor, numero =  self.surtidores.tenesAlgunoLibre()
         elif nombreTipoServidor == self.empleadosGomeria.getNombre():

@@ -68,11 +68,12 @@ class Simulacion:
         self.clientes.generarProxLlegada(reloj)
         nombreTipoServidor = self.decidirServidor(cargarCombustible=0.8,gomeria=0.08) #Aca se pueden cambiar las probabilidades
         nombre, numero = self.estacion.tenesServidorDeEsteTipoLibre(nombreTipoServidor)
-        #
-        #
-        #
-        #
-        #
+        if nombre == False and numero == False: # Entonces no hay servidor libre
+            pass
+        else: # Hay Servidor libre!
+            pass
+
+        
 
     
     def decidirServidor(cargarCombustible, gomeria):

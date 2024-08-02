@@ -33,6 +33,6 @@ class TipoServidor:
         for servidor in self.vTipoServidor:
             if servidor.estasLibre():
                 return self.nombreTipo, servidor.getNumero()
-        return "NO", "NO"    
+        return False, False     
 
 
