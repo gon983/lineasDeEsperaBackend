@@ -7,3 +7,6 @@ class Clientes:
 
     def vectorizarLlegada(self):
         return self.proximaLlegada.vectorizar()
+    
+    def getProxLlegada(self):
+        return self.proximaLlegada.getProxLlegada()

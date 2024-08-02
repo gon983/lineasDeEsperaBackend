@@ -60,6 +60,9 @@ class Llegada(Evento):
 
     def vectorizar(self):
         return [self.vRnd , self.proximaLlegada]
+    
+    def getProxLlegada(self):
+        return self.proximaLlegada
 
     def procesarEvento(self):
         print(f"Fin procesado a las {self.tiempo} hacia {self.destino}")
