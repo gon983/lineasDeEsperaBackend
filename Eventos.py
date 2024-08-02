@@ -16,7 +16,7 @@ class Fin(Evento):
 
 
     def generarProximoFin(self):
-        self.rnd = random.random()
+        self.rnd = round(random.random(),4)
         self.proximoFin = self.a + (self.b-self.a)* self.rnd
         
     
@@ -38,16 +38,15 @@ class Llegada(Evento):
     def __init__(self, media, desviacion):
         self.media = media
         self.desviacion = desviacion
-        self.proximaLlegada = None
         self.primerRndUsado = False
         self.vRnd = []
         self.crearVrnd()
-        self.generarProximaLlegada()
+        self.proximaLlegada = self.generarProximaLlegada()
 
     def crearVrnd(self):
         v = []
-        r1 = random.random()
-        r2 = random.random()
+        r1 = round(random.random(), 4)
+        r2 = round(random.random(),4)
         v.append(r1)
         v.append(r2)
         self.vRnd = v
@@ -61,10 +60,11 @@ class Llegada(Evento):
     def generarProximaLlegada(self):
         if self.primerRndUsado == False:
             self.primerRndUsado = True
-            return (math.sqrt(-2 * math.log(self.vRnd[0], math.e)) * math.cos(2 * math.pi * self.vRnd[1])) * self.desviacion + self.media
+            x1 = round((math.sqrt(-2 * math.log(self.vRnd[0], math.e)) * math.cos(2 * math.pi * self.vRnd[1])) * self.desviacion + self.media,4)
+            return x1
         
         else:
-            x2 = (math.sqrt(-2 * math.log(self.vRnd[0], math.e)) * math.sin(2 * math.pi * self.vRnd[1]))* self.desviacion + self.media 
+            x2 = round((math.sqrt(-2 * math.log(self.vRnd[0], math.e)) * math.sin(2 * math.pi * self.vRnd[1]))* self.desviacion + self.media,2) 
             self.crearVrnd()
             self.primerRndUsado = False
 
