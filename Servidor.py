@@ -18,4 +18,8 @@ class Servidor:
 
     def getNumero(self):
         return self.numeroServidor
+    
+    def estasLibre(self):
+        if self.estado == "libre":
+            return True
 

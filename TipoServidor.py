@@ -28,5 +28,11 @@ class TipoServidor:
             if servidor.getProxFin() == tMin:
                 nombre_servidor = self.nombreTipo + "_" + str(servidor.getNumero())
                 return tMin, nombre_servidor
+            
+    def tenesAlgunoLibre(self):
+        for servidor in self.vTipoServidor:
+            if servidor.estasLibre():
+                return self.nombreTipo, servidor.getNumero()
+        return "NO", "NO"    
 
 

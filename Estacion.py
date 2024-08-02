@@ -10,8 +10,8 @@ class Estacion:
         
         
         self.surtidores = TipoServidor("surtidor", cantidadSurtidores, aDuracionCargaCombustible, bDuracionCargaCombustible )
-        self.empleadosGomeria = TipoServidor("empleado gomeria", cantidadEmpleadosGomeria, aDuracionAtGomeria,  bDuracionAtGomeria )
-        self.empleadosVentaAccesorios = TipoServidor("e. venta accesorios", cantidadEmpleadosVentaAccesorios, aDuracionVentaAccesorios, bDuracionVentaAccesorios)
+        self.empleadosGomeria = TipoServidor("gomeria", cantidadEmpleadosGomeria, aDuracionAtGomeria,  bDuracionAtGomeria )
+        self.empleadosVentaAccesorios = TipoServidor("ventaAccesorios", cantidadEmpleadosVentaAccesorios, aDuracionVentaAccesorios, bDuracionVentaAccesorios)
 
     def vectorizarEstacion(self):
         x = self.surtidores.vectorizar() 
@@ -19,6 +19,20 @@ class Estacion:
         z = self.empleadosVentaAccesorios.vectorizar()
         return x + y + z
     
+    def tenesServidorDeEsteTipoLibre(self, nombreTipoServidor):
+        nombreServidor, numero = None, None
+        if nombreTipoServidor == self.surtidores.getNombre():
+            nombreServidor, numero =  self.surtidores.tenesAlgunoLibre()
+        elif nombreTipoServidor == self.empleadosGomeria.getNombre():
+            nombreServidor, numero = self.surtidores.tenesAlgunoLibre()
+        elif nombreTipoServidor == self.empleadosVentaAccesorios.getNombre():
+            nombreServidor, numero = self.empleadosVentaAccesorios.tenesAlgunoLibre()
+        else:
+            print("Error en la parte de tenes servidor de este tipo libre")
+        
+        return nombreServidor, numero
+
+
     def obtenerProxFin(self):
         v = []
         tMin = 999

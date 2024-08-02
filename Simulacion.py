@@ -52,19 +52,41 @@ class Simulacion:
         relojB , nombreLlegada= self.clientes.getProxLlegada()
         if relojA > relojB:
             self.procesarFin(relojA, nombreFin)
+            return relojA, nombreFin
         else:
             self.procesarLlegada(relojB, nombreLlegada)
+            return relojB, nombreLlegada
 
     
-    def procesarFin(self, nombreFin):
+    def procesarFin(self, reloj , nombreFin):
         print(nombreFin)
         pass
 
 
 
-    def procesarLlegada(self, nombreLlegada):
-        print(nombreLlegada)
-        pass
+    def procesarLlegada(self, reloj):
+        self.clientes.generarProxLlegada(reloj)
+        nombreTipoServidor = self.decidirServidor(cargarCombustible=0.8,gomeria=0.08) #Aca se pueden cambiar las probabilidades
+        nombre, numero = self.estacion.tenesServidorDeEsteTipoLibre(nombreTipoServidor)
+        #
+        #
+        #
+        #
+        #
+
+    
+    def decidirServidor(cargarCombustible, gomeria):
+        rnd = random.random()
+        if rnd <= cargarCombustible:
+            return "surtidor"
+        elif rnd <= gomeria:
+            return "gomeria"
+        else:
+            return "ventaAccesorios"
+            
+    
+    
+        
 
 
 

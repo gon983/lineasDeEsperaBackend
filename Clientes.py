@@ -14,3 +14,6 @@ class Clientes:
         continuacionNombre = str(len(self.vClientes) + 1)
         nombreLlegada += continuacionNombre
         return tLlegada, nombreLlegada
+
+    def generarProxLlegada(self):
+        self.proximaLlegada.generarProximaLlegada()
