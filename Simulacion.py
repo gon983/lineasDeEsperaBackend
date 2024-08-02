@@ -43,8 +43,8 @@ class Simulacion:
 
 
     def procesarEvento(self): #Aca deberia haber una interfaz ??? Tendria q hacer todo de vuelta
-        relojA, fin = self.estacion.obtenerProximoEvento()
-        relojB , llegada= self.clientes.getProximaLlegada()
+        relojA, fin = self.estacion.obtenerProxFin()
+        relojB , llegada= self.clientes.getProxLlegada()
         if relojA > relojB:
             self.procesarFin(relojA, fin)
         else:

@@ -19,21 +19,25 @@ class Estacion:
         z = self.empleadosVentaAccesorios.vectorizar()
         return x + y + z
     
-    def obtenerProximoEvento(self):
+    def obtenerProxFin(self):
         v = []
-        tSurtidor = self.surtidores.getProximoFin()
-        tGomeria =self.empleadosGomeria.getProximoFin()
-        tAccesorios = self.empleadosVentaAccesorios.getProximoFin()
+        nombreFin = "Fin_"
+        tSurtidor, continuacionNombre = self.surtidores.getProximoFin()
+        tGomeria, continuacionNombre =self.empleadosGomeria.getProximoFin()
+        tAccesorios, continuacionNombre = self.empleadosVentaAccesorios.getProximoFin()
         v.append( self.surtidores.getProximoFin())
         v.append(self.empleadosGomeria.getProximoFin())
         v.append(self.empleadosVentaAccesorios.getProximoFin())
         min = min(v)
         if min == tSurtidor:
-            return tSurtidor
+            nombreFin += continuacionNombre
+            return tSurtidor, nombreFin
         elif min == tGomeria:
-            return tGomeria
+            nombreFin += continuacionNombre
+            return tGomeria, continuacionNombre
         elif min == tAccesorios:
-            return tAccesorios
+            nombreFin += continuacionNombre
+            return tAccesorios, continuacionNombre
         else:
             print("Ha ocurrido un error de logica")
 

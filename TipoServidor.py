@@ -25,6 +25,7 @@ class TipoServidor:
         tMin = min(v)
         for servidor in self.vTipoServidor:
             if servidor.getProxFin() == tMin:
+                nombre_servidor = self.nombreTipo + "_" + servidor.getNumero()
                 return tMin
 
 
