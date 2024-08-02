@@ -13,7 +13,8 @@ class Servidor:
         return v
     
     def getProxFin(self):
-        self.finAtencion.getProxFin()
+        prox_fin = self.finAtencion.getProxFin()
+        return prox_fin
 
     def getNumero(self):
         return self.numeroServidor

@@ -47,7 +47,7 @@ class Llegada(Evento):
         self.primerRndUsado = False
         self.vRnd = []
         self.crearVrnd()
-        self.tiempoEntreLlegadas = self.generarProximaLlegada()
+        self.tiempoEntreLlegadas = self.generarProximaLlegada(0)
         self.proximaLlegada = self.tiempoEntreLlegadas
 
     def crearVrnd(self):

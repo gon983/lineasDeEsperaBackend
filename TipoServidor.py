@@ -21,11 +21,12 @@ class TipoServidor:
     def getProxFin(self):
         v = []
         for servidor in self.vTipoServidor:
-            v.append(servidor.getProxFin())
+            proxFin = servidor.getProxFin()
+            v.append(proxFin)
         tMin = min(v)
         for servidor in self.vTipoServidor:
             if servidor.getProxFin() == tMin:
-                nombre_servidor = self.nombreTipo + "_" + servidor.getNumero()
-                return tMin
+                nombre_servidor = self.nombreTipo + "_" + str(servidor.getNumero())
+                return tMin, nombre_servidor
 
 

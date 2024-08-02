@@ -21,21 +21,22 @@ class Estacion:
     
     def obtenerProxFin(self):
         v = []
+        tMin = 999
         nombreFin = "Fin_"
-        tSurtidor, continuacionNombre = self.surtidores.getProximoFin()
-        tGomeria, continuacionNombre =self.empleadosGomeria.getProximoFin()
-        tAccesorios, continuacionNombre = self.empleadosVentaAccesorios.getProximoFin()
-        v.append( self.surtidores.getProximoFin())
-        v.append(self.empleadosGomeria.getProximoFin())
-        v.append(self.empleadosVentaAccesorios.getProximoFin())
-        min = min(v)
-        if min == tSurtidor:
+        tSurtidor, continuacionNombre = self.surtidores.getProxFin()
+        tGomeria, continuacionNombre =self.empleadosGomeria.getProxFin()
+        tAccesorios, continuacionNombre = self.empleadosVentaAccesorios.getProxFin()
+        v.append(tSurtidor)
+        v.append(tGomeria)
+        v.append(tAccesorios)
+        tMin = min(v)
+        if tMin == tSurtidor:
             nombreFin += continuacionNombre
             return tSurtidor, nombreFin
-        elif min == tGomeria:
+        elif tMin == tGomeria:
             nombreFin += continuacionNombre
             return tGomeria, continuacionNombre
-        elif min == tAccesorios:
+        elif tMin == tAccesorios:
             nombreFin += continuacionNombre
             return tAccesorios, continuacionNombre
         else:
