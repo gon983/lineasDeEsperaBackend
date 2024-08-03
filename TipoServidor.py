@@ -23,7 +23,7 @@ class TipoServidor:
         for servidor in self.vTipoServidor:
             vAux = servidor.titularizar(self.nombreTipo)
             v += vAux
-        v+= ["cola" + self.nombreTipo]
+        v+= ["cola " + self.nombreTipo]
         return v
 
 

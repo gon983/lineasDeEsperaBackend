@@ -1,13 +1,10 @@
-from abc import ABC, abstractmethod
+
 import random
 import math
 
-class Evento(ABC):
-    @abstractmethod
-    def procesarEvento(self):
-        pass
 
-class Fin(Evento):
+
+class Fin():
     def __init__(self, a, b):
         self.a = a
         self.b = b
@@ -19,7 +16,7 @@ class Fin(Evento):
     def generarProximoFin(self, reloj):
         self.rnd = round(random.random(),4)
         self.tiempoAtencion = self.a + (self.b-self.a)* self.rnd
-        self.proximoFin = reloj + self.tiempoAtencion
+        self.proximoFin = round(reloj + self.tiempoAtencion,4)
 
         
     
@@ -31,8 +28,6 @@ class Fin(Evento):
     
 
 
-    def procesarEvento(self):
-        print(f"Llegada procesada a las {self.tiempo} desde {self.origen}")
 
     def getProxFin(self):
         return self.proximoFin
@@ -43,7 +38,7 @@ class Fin(Evento):
 
 
 
-class Llegada(Evento):
+class Llegada():
     def __init__(self, media, desviacion):
         self.media = media
         self.desviacion = desviacion
