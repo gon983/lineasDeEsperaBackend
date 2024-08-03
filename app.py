@@ -7,7 +7,7 @@ CORS(app)
 
 
 
-@app.route('/simulacion/<int:cantidadLineasASimular>/<int:duracionSimulacion>/<int:lineaInicioVisualizacion>/<int:lineaFinVisualizacion>/<int:cantidadSurtidores>/<int:cantidadEmpleadosGomeria>/<int:cantidadEmpleadosVentaAccesorios>/<float:llegadaClientesMedia>/<float:llegadaClientesDesviacion>/<float:aDuracionCargaCombustible>/<float:bDuracionCargaCombustible>/<int:aDuracionAtGomeria>/<int:bDuracionAtGomeria>/<int:aDuracionVentaAccesorios>/<int:bDuracionVentaAccesorios>', methods=['GET', 'POST'])
+@app.route('/simulacion/<int:cantidadLineasASimular>/<int:duracionSimulacion>/<int:lineaInicioVisualizacion>/<int:lineaFinVisualizacion>/<int:cantidadSurtidores>/<int:cantidadEmpleadosGomeria>/<int:cantidadEmpleadosVentaAccesorios>/<int:llegadaClientesMedia>/<int:llegadaClientesDesviacion>/<int:aDuracionCargaCombustible>/<int:bDuracionCargaCombustible>/<int:aDuracionAtGomeria>/<int:bDuracionAtGomeria>/<int:aDuracionVentaAccesorios>/<int:bDuracionVentaAccesorios>', methods=['GET', 'POST'])
 def generarSimulacion(cantidadLineasASimular, duracionSimulacion, lineaInicioVisualizacion,
         lineaFinVisualizacion, cantidadSurtidores, cantidadEmpleadosGomeria, cantidadEmpleadosVentaAccesorios,
         llegadaClientesMedia, llegadaClientesDesviacion, aDuracionCargaCombustible, bDuracionCargaCombustible,

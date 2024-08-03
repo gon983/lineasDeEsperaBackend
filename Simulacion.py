@@ -39,7 +39,7 @@ class Simulacion:
         # Despues va la Estacion...
         vFila += self.estacion.vectorizarEstacion()
         # y finalmente los clientes
-        vFila += self.clientes.vectorizarLosQueParticipan() # ¿como hago para marcar los que van a "salir en la foto"?
+        # vFila += self.clientes.vectorizarLosQueParticipan() # ¿como hago para marcar los que van a "salir en la foto"?
         return vFila
 
 
@@ -83,7 +83,7 @@ class Simulacion:
         if nombreServidor == False and numeroServidor == False: # Entonces no hay servidor libre
             pass
         elif isinstance(nombreServidor, str) and isinstance(numeroServidor, int): # Hay Servidor libre!
-            self.estacion.asignarServidor(nombreServidor, numeroServidor, reloj)# asignar servidor incluye cambiarle el estado y generar cuando va a finalizar -> me falta asignarle cuando no hay servidor libre
+            self.estacion.asignarServidor(nombreServidor, numeroServidor, reloj)# asignar servidor incluye cambiarle el estado y generar cuando va a finalizar 
             esteClienteVaAserVisible = False
             if self.lineaInicioSimulacion <= self.numeroIteracion <= self.lineaFinSimulacion:
                 esteClienteVaAserVisible = True
