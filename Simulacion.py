@@ -50,12 +50,13 @@ class Simulacion:
         tabla.append(titulos)
         for i in range(self.cantidadLineasASimular):
             self.numeroIteracion = i
+            self.reloj, self.eventoActual = self.procesarEvento()
             if (i >= self.lineaInicioSimulacion and i <= self.lineaFinSimulacion) or (i == self.cantidadLineasASimular):
                 fila = [self.generarFila()]
                 tabla.append(fila)
                 if i == 3:
                     break
-            self.reloj, self.eventoActual = self.procesarEvento()
+            
         return {"simulacion": [tabla]}
 
 
