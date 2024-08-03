@@ -8,6 +8,9 @@ class Clientes:
     def vectorizarLlegada(self):
         return self.proximaLlegada.vectorizar()
     
+    def titularizarLlegada(self):
+        return self.proximaLlegada.titularizar()
+    
     def getProxLlegada(self):
         tLlegada = self.proximaLlegada.getProxLlegada()
         nombreLlegada = "llegadaCliente_"

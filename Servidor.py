@@ -12,6 +12,11 @@ class Servidor:
         v += self.finAtencion.vectorizar()
         return v
     
+    def titularizar(self, nombreTipo):
+        v = ["estado " + str(nombreTipo) + " " + str(self.numeroServidor)]
+        v += self.finAtencion.titularizar()
+        return v
+    
     def getProxFin(self):
         prox_fin = self.finAtencion.getProxFin()
         return prox_fin

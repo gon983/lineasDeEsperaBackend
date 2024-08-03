@@ -19,6 +19,12 @@ class Estacion:
         z = self.empleadosVentaAccesorios.vectorizar()
         return x + y + z
     
+    def titularizarEstacion(self):
+        x = self.surtidores.titularizar() 
+        y = self.empleadosGomeria.titularizar()
+        z = self.empleadosVentaAccesorios.titularizar()
+        return x + y + z
+    
     def tenesServidorDeEsteTipoLibre(self, nombreTipoServidor):
         nombreServidor, numero = False, False
         if nombreTipoServidor == self.surtidores.getNombre():

@@ -21,6 +21,14 @@ class Simulacion:
         self.clientes = Clientes(llegadaClientesMedia, llegadaClientesDesviacion) 
     
 
+    def titularizar(self):
+        # Primero van el reloj y el evento actual
+        vFila = ["Reloj", "Evento"]
+        # Despues va la llegada de clientes
+        vFila += self.clientes.titularizarLlegada()
+        # Despues va la Estacion...
+        vFila += self.estacion.titularizarEstacion()
+        return vFila
 
     def generarFila(self):
         # Primero van el reloj y el evento actual
@@ -35,11 +43,13 @@ class Simulacion:
     
     def simular(self):
         tabla = []
+        titulos = [self.titularizar()]
+        tabla.append(titulos)
         for i in range(self.cantidadLineasASimular):
             if (i >= self.lineaInicioSimulacion and i <= self.lineaFinSimulacion) or (i == self.cantidadLineasASimular):
                 fila = [self.generarFila()]
                 tabla.append(fila)
-                if i == 2:
+                if i == 3:
                     break
             self.reloj, self.eventoActual = self.procesarEvento()
         return {"simulacion": [tabla]}

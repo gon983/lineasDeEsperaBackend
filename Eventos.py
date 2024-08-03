@@ -26,6 +26,9 @@ class Fin(Evento):
     def vectorizar(self):
         return [self.rnd, self.proximoFin]
     
+    def titularizar(self):
+        return ["rnd", "Proxima Llegada"]
+    
 
 
     def procesarEvento(self):
@@ -59,7 +62,12 @@ class Llegada(Evento):
         self.vRnd = v
 
     def vectorizar(self):
-        return [self.vRnd , self.proximaLlegada]
+        return [self.vRnd, self.proximaLlegada]
+    
+    
+    
+    def titularizar(self):
+        return ["Par de rnd", "Proxima Llegada"]
     
     def getProxLlegada(self):
         return self.proximaLlegada

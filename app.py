@@ -21,6 +21,7 @@ def generarSimulacion(cantidadLineasASimular, duracionSimulacion, lineaInicioVis
 
 
         data = simulacion.simular()
+        # print(data)
         
         
         

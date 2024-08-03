@@ -18,6 +18,15 @@ class TipoServidor:
         v += [self.cola]
         return v
     
+    def titularizar(self):
+        v = []
+        for servidor in self.vTipoServidor:
+            vAux = servidor.titularizar(self.nombreTipo)
+            v += vAux
+        v+= ["cola" + self.nombreTipo]
+        return v
+
+
     def getProxFin(self):
         v = []
         for servidor in self.vTipoServidor:
