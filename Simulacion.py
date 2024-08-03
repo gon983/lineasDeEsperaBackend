@@ -51,9 +51,11 @@ class Simulacion:
         relojB , nombreLlegada= self.clientes.getProxLlegada()
         if relojA < relojB:
             self.procesarFin(relojA, nombreFin)
+            print(relojA)
             return relojA, nombreFin
         else:
-            self.procesarLlegada(relojB, nombreLlegada)
+            self.procesarLlegada(relojB)
+            print(relojB)
             return relojB, nombreLlegada
 
     
@@ -64,18 +66,18 @@ class Simulacion:
 
     def procesarLlegada(self, reloj):
         self.clientes.generarProxLlegada(reloj)
-        nombreTipoServidor = self.decidirServidor(cargarCombustible=0.8,gomeria=0.08) #Aca se pueden cambiar las probabilidades
+        nombreTipoServidor = self.decidirServidor(0.8,0.08) #Aca se pueden cambiar las probabilidades-> primer argumento carga combustible, segundo gomeria y lo q sobra ventaAccesorios
         nombreServidor, numeroServidor = self.estacion.tenesServidorDeEsteTipoLibre(nombreTipoServidor) # retorna False, False si no encuentra el servidor
         if nombreServidor == False and numeroServidor == False: # Entonces no hay servidor libre
             pass
         else: # Hay Servidor libre!
-            self.estacion.asignarServidor(nombreServidor, numeroServidor, reloj) # asignar servidor incluye cambiarle el estado y generar cuando va a finalizar
-            self.clientes.crearClienteAtendido(nombreServidor, numeroServidor)
+            self.estacion.asignarServidor(numeroServidor, reloj) # asignar servidor incluye cambiarle el estado y generar cuando va a finalizar
+            # self.clientes.crearClienteAtendido(nombreServidor, numeroServidor)
 
         
 
     
-    def decidirServidor(cargarCombustible, gomeria):
+    def decidirServidor(self, cargarCombustible, gomeria):
         rnd = random.random()
         if rnd <= cargarCombustible:
             return "surtidor"

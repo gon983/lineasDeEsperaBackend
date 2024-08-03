@@ -40,4 +40,7 @@ class TipoServidor:
             if servidor.getNumero() == numeroServidor and servidor.estasLibre():
                 servidor.ocuparte(reloj)
 
+    def getNombre(self):
+        return self.nombreTipo
+
 

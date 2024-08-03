@@ -15,5 +15,5 @@ class Clientes:
         nombreLlegada += continuacionNombre
         return tLlegada, nombreLlegada
 
-    def generarProxLlegada(self):
-        self.proximaLlegada.generarProximaLlegada()
+    def generarProxLlegada(self, reloj):
+        self.proximaLlegada.generarProximaLlegada(reloj)
