@@ -27,7 +27,7 @@ class Fin(Evento):
         return [self.rnd, self.proximoFin]
     
     def titularizar(self):
-        return ["rnd", "Proxima Llegada"]
+        return ["rnd", "Proximo Fin"]
     
 
 
@@ -67,7 +67,7 @@ class Llegada(Evento):
     
     
     def titularizar(self):
-        return ["Par de rnd", "Proxima Llegada"]
+        return ["Par de rnd", "Proxima llegada"]
     
     def getProxLlegada(self):
         return self.proximaLlegada

@@ -62,13 +62,16 @@ class Estacion:
         else:
             print("Ha ocurrido un error de logica")
 
-    def asignarServidor(self, nombreTipoServidor, numeroServidor):
+    def asignarServidor(self, nombreTipoServidor, numeroServidor, reloj):
+        print("Entre Aca")
         if nombreTipoServidor == self.surtidores.getNombre():
-            self.surtidores.asignarServidor()
+            self.surtidores.asignarServidor(numeroServidor, reloj)
         elif nombreTipoServidor == self.empleadosGomeria.getNombre():
-            self.surtidores.asignarServidor()
+            self.surtidores.asignarServidor(numeroServidor, reloj)
         elif nombreTipoServidor == self.empleadosVentaAccesorios.getNombre():
-            self.empleadosVentaAccesorios.asignarServidor()
+            self.empleadosVentaAccesorios.asignarServidor(numeroServidor, reloj)
+        else:
+            print("El nombre del servidor no coincida con el pasado por parametro")
 
 
 

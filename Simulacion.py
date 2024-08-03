@@ -61,11 +61,9 @@ class Simulacion:
         relojB , nombreLlegada= self.clientes.getProxLlegada()
         if relojA < relojB:
             self.procesarFin(relojA, nombreFin)
-            print(relojA)
             return relojA, nombreFin
         else:
             self.procesarLlegada(relojB)
-            print(relojB)
             return relojB, nombreLlegada
 
     
@@ -80,9 +78,11 @@ class Simulacion:
         nombreServidor, numeroServidor = self.estacion.tenesServidorDeEsteTipoLibre(nombreTipoServidor) # retorna False, False si no encuentra el servidor
         if nombreServidor == False and numeroServidor == False: # Entonces no hay servidor libre
             pass
-        else: # Hay Servidor libre!
-            self.estacion.asignarServidor(numeroServidor, reloj) # asignar servidor incluye cambiarle el estado y generar cuando va a finalizar
+        elif isinstance(nombreServidor, str) and isinstance(numeroServidor, int): # Hay Servidor libre!
+            self.estacion.asignarServidor(nombreServidor, numeroServidor, reloj) # asignar servidor incluye cambiarle el estado y generar cuando va a finalizar
             # self.clientes.crearClienteAtendido(nombreServidor, numeroServidor)
+        else:
+            print("Error de logica en procesar llegada")
 
         
 
