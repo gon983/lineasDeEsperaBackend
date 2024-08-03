@@ -39,10 +39,12 @@ class Simulacion:
     def simular(self):
         tabla = []
         for i in range(self.cantidadLineasASimular):
-            self.reloj, self.eventoActual = self.procesarEvento()
             if (i >= self.lineaInicioSimulacion and i <= self.lineaFinSimulacion) or (i == self.cantidadLineasASimular):
-                fila = [self.generarFila()]
                 tabla.append(fila)
+                fila = [self.generarFila()]
+                if i == 2:
+                    break
+            self.reloj, self.eventoActual = self.procesarEvento()
         return {"simulacion": [tabla]}
 
 
@@ -59,7 +61,6 @@ class Simulacion:
 
     
     def procesarFin(self, reloj , nombreFin):
-        print(nombreFin)
         pass
 
 
@@ -67,11 +68,12 @@ class Simulacion:
     def procesarLlegada(self, reloj):
         self.clientes.generarProxLlegada(reloj)
         nombreTipoServidor = self.decidirServidor(cargarCombustible=0.8,gomeria=0.08) #Aca se pueden cambiar las probabilidades
-        nombre, numero = self.estacion.tenesServidorDeEsteTipoLibre(nombreTipoServidor)
-        if nombre == False and numero == False: # Entonces no hay servidor libre
+        nombreServidor, numeroServidor = self.estacion.tenesServidorDeEsteTipoLibre(nombreTipoServidor) # retorna False, False si no encuentra el servidor
+        if nombreServidor == False and numeroServidor == False: # Entonces no hay servidor libre
             pass
         else: # Hay Servidor libre!
-            pass
+            self.estacion.asignarServidor(nombreServidor, numeroServidor, reloj) # asignar servidor incluye cambiarle el estado y generar cuando va a finalizar
+            self.clientes.crearClienteAtendido(nombreServidor, numeroServidor)
 
         
 
@@ -84,6 +86,10 @@ class Simulacion:
             return "gomeria"
         else:
             return "ventaAccesorios"
+        
+    
+
+
             
     
     

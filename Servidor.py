@@ -22,4 +22,8 @@ class Servidor:
     def estasLibre(self):
         if self.estado == "libre":
             return True
+        
+    def ocuparte(self, reloj):
+        self.estado = "ocupado"
+        self.finAtencion.generarProximoFin(reloj)
 

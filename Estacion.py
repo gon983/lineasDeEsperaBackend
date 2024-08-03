@@ -56,6 +56,15 @@ class Estacion:
         else:
             print("Ha ocurrido un error de logica")
 
+    def asignarServidor(self, nombreTipoServidor, numeroServidor):
+        if nombreTipoServidor == self.surtidores.getNombre():
+            self.surtidores.asignarServidor()
+        elif nombreTipoServidor == self.empleadosGomeria.getNombre():
+            self.surtidores.asignarServidor()
+        elif nombreTipoServidor == self.empleadosVentaAccesorios.getNombre():
+            self.empleadosVentaAccesorios.asignarServidor()
+
+
 
 
     
