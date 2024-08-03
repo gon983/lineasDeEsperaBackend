@@ -39,7 +39,7 @@ class Simulacion:
         # Despues va la Estacion...
         vFila += self.estacion.vectorizarEstacion()
         # y finalmente los clientes
-        # vFila += self.clientes.vectorizarLosQueParticipan() # ¿como hago para marcar los que van a "salir en la foto"?
+        vFila += self.clientes.vectorizarClientes() # ¿como hago para marcar los que van a "salir en la foto"? #lo voy a hacer con el nombre de los que llegan a su visualizacion
         return vFila
 
 
