@@ -12,6 +12,14 @@ class Clientes:
     def titularizarLlegada(self):
         return self.proximaLlegada.titularizar()
     
+    def vectorizarClientes(self):
+        vAux = []
+        for cliente in self.vClientes:
+            if cliente.esVisible():
+                vAux.append(cliente.getEstado())
+        return vAux
+    
+    
     def getProxLlegada(self):
         tLlegada = self.proximaLlegada.getProxLlegada()
         nombreLlegada = "llegadaCliente_"
@@ -22,7 +30,7 @@ class Clientes:
     def generarProxLlegada(self, reloj):
         self.proximaLlegada.generarProximaLlegada(reloj)
 
-    def crearClienteAtendido(self,  tipoServidor, numeroServidor , horaLlegada): 
+    def crearClienteAtendido(self,  tipoServidor, numeroServidor , horaLlegada, seraVisible): 
         #recordar usar el booleano que maneja 
         # que los clientes que comienzan 
         # por combustible despues pueden ir a gomeria o a compra Accesorios
@@ -30,5 +38,5 @@ class Clientes:
         # tiempo de permanencia maximo en el sistema
         id = len(self.vClientes) + 1
         estado = "SA_" + str(tipoServidor) + "_" + str(numeroServidor)
-        cliente = Cliente(id, estado, horaLlegada)
+        cliente = Cliente(id, estado, horaLlegada, seraVisible)
         self.vClientes.append(cliente)
