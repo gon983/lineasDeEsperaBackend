@@ -45,8 +45,8 @@ class Llegada():
         self.primerRndUsado = False
         self.vRnd = []
         self.crearVrnd()
-        self.tiempoEntreLlegadas = self.generarProximaLlegada(0)
-        self.proximaLlegada = self.tiempoEntreLlegadas
+        self.proximaLlegada = 0
+        self.generarProximaLlegada(0)
 
     def crearVrnd(self):
         v = []
@@ -67,23 +67,21 @@ class Llegada():
     def getProxLlegada(self):
         return self.proximaLlegada
 
-    def procesarEvento(self):
-        print(f"Fin procesado a las {self.tiempo} hacia {self.destino}")
 
     def generarProximaLlegada(self, reloj):
         if self.primerRndUsado == False:
             self.primerRndUsado = True
             x1 = round((math.sqrt(-2 * math.log(self.vRnd[0], math.e)) * math.cos(2 * math.pi * self.vRnd[1])) * self.desviacion + self.media,4)
-            self.tiempoEntreLlegadas = x1
-            self.proximaLlegada = self.tiempoEntreLlegadas + reloj
+            tiempoEntreLlegadas = x1
+            self.proximaLlegada = abs(tiempoEntreLlegadas) + reloj #Agrego el absoluto porque no me pueden dar numeros negativos
             return x1
         
         else:
             x2 = round((math.sqrt(-2 * math.log(self.vRnd[0], math.e)) * math.sin(2 * math.pi * self.vRnd[1]))* self.desviacion + self.media,2) 
             self.crearVrnd()
             self.primerRndUsado = False
-            self.tiempoEntreLlegadas = x2
-            self.proximaLlegada = self.tiempoEntreLlegadas + reloj
+            tiempoEntreLlegadas = x2
+            self.proximaLlegada = abs(tiempoEntreLlegadas) + reloj #Agrego el absoluto porque no me pueden dar numeros negativos
 
             return x2  
 

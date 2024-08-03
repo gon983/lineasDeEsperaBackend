@@ -12,6 +12,7 @@ class Simulacion:
         self.eventoActual = "Inicializacion"
         self.cantidadLineasASimular = cantidadLineasASimular
         self.duracionSimulacion = duracionSimulacion
+        self.numeroIteracion = 0
         self.lineaInicioSimulacion = lineaInicioVisualizacion
         self.lineaFinSimulacion = lineaFinVisualizacion
         self.estacion = Estacion(cantidadSurtidores, cantidadEmpleadosGomeria, cantidadEmpleadosVentaAccesorios,
@@ -37,6 +38,8 @@ class Simulacion:
         vFila += self.clientes.vectorizarLlegada()
         # Despues va la Estacion...
         vFila += self.estacion.vectorizarEstacion()
+        # y finalmente los clientes
+        vFila += self.clientes.vectorizarLosQueParticipan() # ¿como hago para marcar los que van a "salir en la foto"?
         return vFila
 
 
@@ -46,6 +49,7 @@ class Simulacion:
         titulos = [self.titularizar()]
         tabla.append(titulos)
         for i in range(self.cantidadLineasASimular):
+            self.numeroIteracion = i
             if (i >= self.lineaInicioSimulacion and i <= self.lineaFinSimulacion) or (i == self.cantidadLineasASimular):
                 fila = [self.generarFila()]
                 tabla.append(fila)
@@ -56,7 +60,7 @@ class Simulacion:
 
 
 
-    def procesarEvento(self): #Aca deberia haber una interfaz ??? Tendria q hacer todo de vuelta
+    def procesarEvento(self): 
         relojA, nombreFin = self.estacion.obtenerProxFin()
         relojB , nombreLlegada= self.clientes.getProxLlegada()
         if relojA < relojB:
@@ -79,8 +83,11 @@ class Simulacion:
         if nombreServidor == False and numeroServidor == False: # Entonces no hay servidor libre
             pass
         elif isinstance(nombreServidor, str) and isinstance(numeroServidor, int): # Hay Servidor libre!
-            self.estacion.asignarServidor(nombreServidor, numeroServidor, reloj) # asignar servidor incluye cambiarle el estado y generar cuando va a finalizar
-            # self.clientes.crearClienteAtendido(nombreServidor, numeroServidor)
+            self.estacion.asignarServidor(nombreServidor, numeroServidor, reloj)# asignar servidor incluye cambiarle el estado y generar cuando va a finalizar -> me falta asignarle cuando no hay servidor libre
+            esteClienteVaAserVisible = False
+            if self.lineaInicioSimulacion <= self.numeroIteracion <= self.lineaFinSimulacion:
+                esteClienteVaAserVisible = True
+            self.clientes.crearClienteAtendido(nombreServidor, numeroServidor, reloj, esteClienteVaAserVisible) #recordar usar el booleano que maneja que los clientes que comienzan por combustible despues pueden ir a gomeria o a compra Accesorios tambien qie se necesita la hora de llegada para despues calcular tiempo de permanencia maximo en el sistema
         else:
             print("Error de logica en procesar llegada")
 
