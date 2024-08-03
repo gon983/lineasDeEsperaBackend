@@ -20,8 +20,9 @@ def generarSimulacion(cantidadLineasASimular, duracionSimulacion, lineaInicioVis
         aDuracionAtGomeria, bDuracionAtGomeria, aDuracionVentaAccesorios, bDuracionVentaAccesorios)
 
 
-        simulacion.simular()
-        data = simulacion.generarTabla()
+        data = simulacion.simular()
+        print(data)
+        
         
 
 
