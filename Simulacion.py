@@ -75,10 +75,22 @@ class Simulacion:
     def procesarFin(self, reloj , nombreFin):
         nombreTipoServidor, numeroServidor = self.desamblarNombreFin()
         # tratamos al cliente que consumio el servicio
-        if self.seVaDelSistema():
+        if nombreTipoServidor=="surtidor" and self.seVaDelSistema():
             pass
-        else:
-            pass
+        else: # si no se va del sistema va a gomeria o a venta de accesorios
+            nombreTipoServidor = self.aDondeVoy(0.4)
+            nombreServidorLibre , numeroServidorLibre = self.estacion.tenesServidorDeEsteTipoLibre(nombreTipoServidor)
+
+            # si no hay un servidor libre, asigna un cliente a cola del servidor libre
+            if nombreServidorLibre == False and numeroServidorLibre == False:
+                self.estacion.asignarACola(nombreTipoServidor)
+                self.clientes.asignarClienteEnCola(nombreTipoServidor)
+            # si hay un servidor libre asigna el cliente siendo atendido en el servidor libre
+            elif isinstance(nombreServidorLibre, str) and isinstance(numeroServidorLibre, int): 
+                self.estacion.asignarServidor(nombreServidorLibre, numeroServidorLibre, reloj)# asignar servidor incluye cambiarle el estado y generar cuando va a finalizar 
+                self.clientes.asignarClienteAtendido(nombreServidorLibre, numeroServidorLibre) 
+            else:
+                print("Error de logica en procesar llegada")
 
         # si hay cola , hacemos atender al cliente que estaba esperando y sino ponemos al servidor libre
         if self.estacion.preguntarSiHayColaParaElTipoDeServicio(nombreTipoServidor):
@@ -91,19 +103,25 @@ class Simulacion:
 
 
     def procesarLlegada(self, reloj):
+        # Primero genera la proxima llegada
         self.clientes.generarProxLlegada(reloj)
+        # Decide que servicio, la llegada que estamos procesando va a tomar
         nombreTipoServidor = self.decidirServidor(0.8,0.08) #Aca se pueden cambiar las probabilidades-> primer argumento carga combustible, segundo gomeria y lo q sobra ventaAccesorios
+        # Pregunta si de ese tipo de servidor hay alguno libre
         nombreServidor, numeroServidor = self.estacion.tenesServidorDeEsteTipoLibre(nombreTipoServidor) # retorna False, False si no encuentra el servidor
+
+
         esteClienteVaAserVisible = False
         if self.lineaInicioSimulacion <= self.numeroIteracion <= self.lineaFinSimulacion:
                 esteClienteVaAserVisible = True
 
+        # si no hay un servidor libre, crea un cliente en cola
         if nombreServidor == False and numeroServidor == False: # Entonces no hay servidor libre
             self.estacion.asignarACola(nombreTipoServidor)
             self.clientes.crearClienteEnCola(nombreTipoServidor,reloj, esteClienteVaAserVisible)
+        # si hay un servidor libre crea un cliente siendo atendido
         elif isinstance(nombreServidor, str) and isinstance(numeroServidor, int): # Hay Servidor libre!
             self.estacion.asignarServidor(nombreServidor, numeroServidor, reloj)# asignar servidor incluye cambiarle el estado y generar cuando va a finalizar 
-
             self.clientes.crearClienteAtendido(nombreServidor, numeroServidor, reloj, esteClienteVaAserVisible) #recordar usar el booleano que maneja que los clientes que comienzan por combustible despues pueden ir a gomeria o a compra Accesorios tambien qie se necesita la hora de llegada para despues calcular tiempo de permanencia maximo en el sistema
         else:
             print("Error de logica en procesar llegada")
@@ -132,6 +150,15 @@ class Simulacion:
         if random.random() <= 0.5:
             return True
         return False
+    
+    def aDondeVoy(self, gomeria):
+        rnd = random.random()
+        if rnd <= gomeria:
+            return "gomeria"
+        return "ventaAccesorios"
+
+    
+    
 
     
 

@@ -37,12 +37,33 @@ class Clientes:
         # tambien qie se necesita la hora de llegada para despues calcular 
         # tiempo de permanencia maximo en el sistema
         id = len(self.vClientes) + 1
-        estado = "C"+ str(id) + "_"+ "SA_" + str(tipoServidor) + "_" + str(numeroServidor)
+        estado = "C_"+ str(id) + "_"+ "SA_" + str(tipoServidor) + "_" + str(numeroServidor)
         cliente = Cliente(id, estado, horaLlegada, seraVisible)
         self.vClientes.append(cliente)
 
     def crearClienteEnCola(self, tipoServidor, horaLlegada, seraVisible):
         id = len(self.vClientes) + 1
-        estado = "C"+ str(id) + "_" + "enCola_" + str(tipoServidor) 
+        estado = "C_"+ str(id) + "_" + "enCola_" + str(tipoServidor) + "_" + "0"
         cliente = Cliente(id, estado, horaLlegada, seraVisible)
         self.vClientes.append(cliente)
+
+    def asignarClienteAtendido(self, nombreTipoServidor, numeroServidor):
+        cliente = self.buscarCliente(nombreTipoServidor, numeroServidor)
+        cliente.serAtendido(nombreTipoServidor, numeroServidor)
+
+    def asignarClienteEnCola(self, nombreTipoServidor):
+        cliente = self.buscarCliente(nombreTipoServidor, 0)
+        cliente.aCola(nombreTipoServidor)
+
+    
+    def buscarCliente(self, tipoServidor, numeroServidor):
+        for cliente in self.vClientes:
+            estadoCliente = cliente.getEstado()
+            vEstado = estadoCliente.split('_')
+            # id = vEstado[1]
+            tipoServidorTransitorio = vEstado[3]
+            numeroServidorTransitorio = vEstado[5]
+            if tipoServidorTransitorio == tipoServidor and numeroServidorTransitorio == numeroServidor:
+                return cliente
+
+            
