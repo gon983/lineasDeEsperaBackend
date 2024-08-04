@@ -93,10 +93,10 @@ class Simulacion:
                 print("Error de logica en procesar llegada")
 
         # si hay cola , hacemos atender al cliente que estaba esperando y sino ponemos al servidor libre
-        if self.estacion.preguntarSiHayColaParaElTipoDeServicio(nombreTipoServidor):
-            pass
-        else:
-            pass
+        # if self.estacion.preguntarSiHayColaParaElTipoDeServicio(nombreServidorLibre):
+        #     pass
+        # else:
+        #     pass
             
         
 

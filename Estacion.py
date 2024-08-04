@@ -43,22 +43,22 @@ class Estacion:
         v = []
         tMin = 999
         nombreFin = "Fin_"
-        tSurtidor, continuacionNombre = self.surtidores.getProxFin()
-        tGomeria, continuacionNombre =self.empleadosGomeria.getProxFin()
-        tAccesorios, continuacionNombre = self.empleadosVentaAccesorios.getProxFin()
+        tSurtidor, surtidor = self.surtidores.getProxFin()
+        tGomeria, gomeria =self.empleadosGomeria.getProxFin()
+        tAccesorios, accesorios= self.empleadosVentaAccesorios.getProxFin()
         v.append(tSurtidor)
         v.append(tGomeria)
         v.append(tAccesorios)
         tMin = min(v)
         if tMin == tSurtidor:
-            nombreFin += continuacionNombre
+            nombreFin += surtidor
             return tSurtidor, nombreFin
         elif tMin == tGomeria:
-            nombreFin += continuacionNombre
-            return tGomeria, continuacionNombre
+            nombreFin += gomeria
+            return tGomeria, nombreFin
         elif tMin == tAccesorios:
-            nombreFin += continuacionNombre
-            return tAccesorios, continuacionNombre
+            nombreFin += accesorios
+            return tAccesorios, nombreFin
         else:
             print("Ha ocurrido un error de logica")
 
