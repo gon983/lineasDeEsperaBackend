@@ -47,25 +47,25 @@ class Clientes:
         cliente = Cliente(id, estado, horaLlegada, seraVisible)
         self.vClientes.append(cliente)
 
-    def asignarClienteAtendido(self, nombreTipoServidor, numeroServidor):
-        cliente = self.buscarCliente(nombreTipoServidor, numeroServidor)
-        print(cliente)
-        cliente.serAtendido(nombreTipoServidor, numeroServidor)
+    def asignarClienteAtendido(self, tipoServidorAnterior, numeroServidorAnterior, tipoServidorNuevo, numeroServidorNuevo):
+        cliente = self.buscarCliente(tipoServidorAnterior, numeroServidorAnterior)
+        cliente.serAtendido(tipoServidorNuevo, numeroServidorNuevo)
 
-    def asignarClienteEnCola(self, nombreTipoServidor):
-        cliente = self.buscarCliente(nombreTipoServidor, 0)
+    def asignarClienteEnCola(self, tipoServidorAnterior, numeroServidorAnterior, nombreTipoServidor):
+        cliente = self.buscarCliente(tipoServidorAnterior, numeroServidorAnterior)
         cliente.aCola(nombreTipoServidor)
 
     
-    def buscarCliente(self, tipoServidorLibre, numeroServidorLibre, tipoServidorAnterior, numeroServidorAnterior): #les pase el servidor q estaba libre. necesito pasarles ademas el servidor anterior
+    def buscarCliente(self, tipoServidorAnterior, numeroServidorAnterior): #les pase el servidor q estaba libre. necesito pasarles ademas el servidor anterior
         for cliente in self.vClientes:
             estadoCliente = cliente.getEstado()
+            print(estadoCliente)
+            print(tipoServidorAnterior)
+            print(numeroServidorAnterior)
             vEstado = estadoCliente.split('_')
             # id = vEstado[1]
             tipoServidorTransitorio = vEstado[3]
             numeroServidorTransitorio = vEstado[4]
-            print(f"tipo Servidor de los estados de los clientes {tipoServidorTransitorio}, numero servidor transitorio {numeroServidorTransitorio}")
-            print(f'tipo servidor anterior {tipoServidorAnterior} numero servidor {numeroServidorAnterior}')
             if tipoServidorTransitorio == tipoServidorAnterior and numeroServidorTransitorio == numeroServidorAnterior:
                 return cliente
 
