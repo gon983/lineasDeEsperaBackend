@@ -75,7 +75,12 @@ class Simulacion:
     def procesarFin(self, reloj , nombreFin):
         nombreTipoServidor, numeroServidor = self.desamblarNombreFin()
         # tratamos al cliente que consumio el servicio
-        self.clientes.terminoTuServicio(nombreTipoServidor, numeroServidor)
+        if self.seVaDelSistema():
+            pass
+        else:
+            pass
+
+        # si hay cola , hacemos atender al cliente que estaba esperando y sino ponemos al servidor libre
         if self.estacion.preguntarSiHayColaParaElTipoDeServicio(nombreTipoServidor):
             pass
         else:
@@ -122,6 +127,11 @@ class Simulacion:
         # print("El nombre tipo servidor es: " + nombreTipoServidor)
         # print("El numero de servidor es "+ numeroServidor)
         return nombreTipoServidor, numeroServidor
+    
+    def seVaDelSistema(self):
+        if random.random() <= 0.5:
+            return True
+        return False
 
     
 
