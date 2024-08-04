@@ -73,9 +73,9 @@ class Simulacion:
 
     
     def procesarFin(self, reloj , nombreFin):
-        nombreTipoServidor, numeroServidor = self.desamblarNombreFin()
+        nombreServidorAnterior, numeroServidorAnterior = self.desamblarNombreFin(nombreFin)
         # tratamos al cliente que consumio el servicio
-        if nombreTipoServidor=="surtidor" and self.seVaDelSistema():
+        if nombreServidorAnterior=="surtidor" and self.seVaDelSistema():
             pass
         else: # si no se va del sistema va a gomeria o a venta de accesorios
             nombreTipoServidor = self.aDondeVoy(0.4)
@@ -84,11 +84,11 @@ class Simulacion:
             # si no hay un servidor libre, asigna un cliente a cola del servidor libre
             if nombreServidorLibre == False and numeroServidorLibre == False:
                 self.estacion.asignarACola(nombreTipoServidor)
-                self.clientes.asignarClienteEnCola(nombreTipoServidor)
+                self.clientes.asignarClienteEnCola(nombreServidorAnterior, numeroServidorAnterior, nombreTipoServidor)
             # si hay un servidor libre asigna el cliente siendo atendido en el servidor libre
             elif isinstance(nombreServidorLibre, str) and isinstance(numeroServidorLibre, int): 
                 self.estacion.asignarServidor(nombreServidorLibre, numeroServidorLibre, reloj)# asignar servidor incluye cambiarle el estado y generar cuando va a finalizar 
-                self.clientes.asignarClienteAtendido(nombreServidorLibre, numeroServidorLibre) 
+                self.clientes.asignarClienteAtendido(nombreServidorAnterior, numeroServidorAnterior, nombreServidorLibre, numeroServidorLibre) 
             else:
                 print("Error de logica en procesar llegada")
 
@@ -147,7 +147,7 @@ class Simulacion:
         return nombreTipoServidor, numeroServidor
     
     def seVaDelSistema(self):
-        if random.random() <= 0.5:
+        if random.random() <= 0.99:
             return True
         return False
     
