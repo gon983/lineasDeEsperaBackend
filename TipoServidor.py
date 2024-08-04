@@ -55,4 +55,10 @@ class TipoServidor:
     def asignarACola(self):
         self.cola += 1
 
+    def preguntarSiHayCola(self):
+        if self.cola == 0:
+            return False
+        else:
+            return True
+
 

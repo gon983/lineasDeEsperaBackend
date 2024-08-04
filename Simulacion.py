@@ -73,7 +73,15 @@ class Simulacion:
 
     
     def procesarFin(self, reloj , nombreFin):
-        pass
+        nombreTipoServidor, numeroServidor = self.desamblarNombreFin()
+        # tratamos al cliente que consumio el servicio
+        self.clientes.terminoTuServicio(nombreTipoServidor, numeroServidor)
+        if self.estacion.preguntarSiHayColaParaElTipoDeServicio(nombreTipoServidor):
+            pass
+        else:
+            pass
+            
+        
 
 
 
@@ -107,6 +115,14 @@ class Simulacion:
         else:
             return "ventaAccesorios"
         
+    def desamblarNombreFin(self,nombreFin):
+        partes = nombreFin.split("_")
+        nombreTipoServidor = partes[1]
+        numeroServidor = partes[2]
+        # print("El nombre tipo servidor es: " + nombreTipoServidor)
+        # print("El numero de servidor es "+ numeroServidor)
+        return nombreTipoServidor, numeroServidor
+
     
 
 
