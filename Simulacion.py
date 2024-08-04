@@ -54,7 +54,7 @@ class Simulacion:
             if (i >= self.lineaInicioSimulacion and i <= self.lineaFinSimulacion) or (i == self.cantidadLineasASimular):
                 fila = [self.generarFila()]
                 tabla.append(fila)
-                if i == 3:
+                if i == 6:
                     break
             
         return {"simulacion": [tabla]}
@@ -81,13 +81,16 @@ class Simulacion:
         self.clientes.generarProxLlegada(reloj)
         nombreTipoServidor = self.decidirServidor(0.8,0.08) #Aca se pueden cambiar las probabilidades-> primer argumento carga combustible, segundo gomeria y lo q sobra ventaAccesorios
         nombreServidor, numeroServidor = self.estacion.tenesServidorDeEsteTipoLibre(nombreTipoServidor) # retorna False, False si no encuentra el servidor
+        esteClienteVaAserVisible = False
+        if self.lineaInicioSimulacion <= self.numeroIteracion <= self.lineaFinSimulacion:
+                esteClienteVaAserVisible = True
+
         if nombreServidor == False and numeroServidor == False: # Entonces no hay servidor libre
-            pass
+            self.estacion.asignarACola(nombreTipoServidor)
+            self.clientes.crearClienteEnCola(nombreTipoServidor,reloj, esteClienteVaAserVisible)
         elif isinstance(nombreServidor, str) and isinstance(numeroServidor, int): # Hay Servidor libre!
             self.estacion.asignarServidor(nombreServidor, numeroServidor, reloj)# asignar servidor incluye cambiarle el estado y generar cuando va a finalizar 
-            esteClienteVaAserVisible = False
-            if self.lineaInicioSimulacion <= self.numeroIteracion <= self.lineaFinSimulacion:
-                esteClienteVaAserVisible = True
+
             self.clientes.crearClienteAtendido(nombreServidor, numeroServidor, reloj, esteClienteVaAserVisible) #recordar usar el booleano que maneja que los clientes que comienzan por combustible despues pueden ir a gomeria o a compra Accesorios tambien qie se necesita la hora de llegada para despues calcular tiempo de permanencia maximo en el sistema
         else:
             print("Error de logica en procesar llegada")

@@ -51,5 +51,8 @@ class TipoServidor:
 
     def getNombre(self):
         return self.nombreTipo
+    
+    def asignarACola(self):
+        self.cola += 1
 
 
