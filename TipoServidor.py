@@ -53,7 +53,7 @@ class TipoServidor:
     def liberarServidor(self, numeroServidor):
         for servidor in self.vTipoServidor:
             numeroServidor = int(numeroServidor)
-            if servidor.getNumero() == numeroServidor and servidor.estasOcupado():
+            if servidor.getNumero() == numeroServidor:
                 servidor.liberarte()
                 break
         
