@@ -30,7 +30,7 @@ class Estacion:
         if nombreTipoServidor == self.surtidores.getNombre():
             nombreServidor, numero =  self.surtidores.tenesAlgunoLibre()
         elif nombreTipoServidor == self.empleadosGomeria.getNombre():
-            nombreServidor, numero = self.surtidores.tenesAlgunoLibre()
+            nombreServidor, numero = self.empleadosGomeria.tenesAlgunoLibre()
         elif nombreTipoServidor == self.empleadosVentaAccesorios.getNombre():
             nombreServidor, numero = self.empleadosVentaAccesorios.tenesAlgunoLibre()
         else:
@@ -66,7 +66,7 @@ class Estacion:
         if nombreTipoServidor == self.surtidores.getNombre():
             self.surtidores.asignarServidor(numeroServidor, reloj)
         elif nombreTipoServidor == self.empleadosGomeria.getNombre():
-            self.surtidores.asignarServidor(numeroServidor, reloj)
+            self.empleadosGomeria.asignarServidor(numeroServidor, reloj)
         elif nombreTipoServidor == self.empleadosVentaAccesorios.getNombre():
             self.empleadosVentaAccesorios.asignarServidor(numeroServidor, reloj)
         else:
