@@ -140,6 +140,7 @@ class Simulacion:
     
     def decidirServidor(self, cargarCombustible, gomeria):
         rnd = random.random()
+        gomeria = cargarCombustible + gomeria
         if rnd <= cargarCombustible:
             return "surtidor"
         elif rnd <= gomeria:
