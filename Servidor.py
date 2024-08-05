@@ -27,8 +27,18 @@ class Servidor:
     def estasLibre(self):
         if self.estado == "libre":
             return True
+        return False
+        
+    def estasOcupado(self):
+        if self.estado == "ocupado":
+            return True
+        return False
         
     def ocuparte(self, reloj):
         self.estado = "ocupado"
         self.finAtencion.generarProximoFin(reloj)
+
+    def liberarte(self):
+        self.estado = "libre"
+        self.finAtencion.setSinProximoFin()
 

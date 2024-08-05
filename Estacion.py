@@ -102,6 +102,17 @@ class Estacion:
         else:
             print("El nombre del servidor no coincida con el pasado por parametro")
 
+    def liberarServidor(self, nombreTipoServidor, numeroServidor):
+        if nombreTipoServidor == self.surtidores.getNombre():
+            self.surtidores.liberarServidor(numeroServidor)
+        elif nombreTipoServidor == self.empleadosGomeria.getNombre():
+            self.empleadosGomeria.liberarServidor(numeroServidor)
+        elif nombreTipoServidor == self.empleadosVentaAccesorios.getNombre():
+            self.empleadosVentaAccesorios.liberarServidor(numeroServidor)
+        else:
+            print("El nombre del servidor no coincida con el pasado por parametro")
+
+
 
 
 

@@ -49,6 +49,11 @@ class TipoServidor:
             if servidor.getNumero() == numeroServidor and servidor.estasLibre():
                 servidor.ocuparte(reloj)
 
+    def liberarServidor(self, numeroServidor):
+        for servidor in self.vTipoServidor:
+            if servidor.getNumero() == numeroServidor and servidor.estasOcupado():
+                servidor.liberarte()
+
     def getNombre(self):
         return self.nombreTipo
     

@@ -99,8 +99,8 @@ class Simulacion:
             self.estacion.sacarDeCola(nombreServidorAnterior)
             # self.clientes.atenderClienteDeCola()
         else:
-            # self.estacion.liberarServidor(nombreServidorAnterior, numeroServidorAnterior)
-            pass
+            self.estacion.liberarServidor(nombreServidorAnterior, numeroServidorAnterior)
+            
             
         
 

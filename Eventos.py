@@ -8,7 +8,7 @@ class Fin():
     def __init__(self, a, b):
         self.a = a
         self.b = b
-        self.proximoFin = 999
+        self.proximoFin = ""
 
 
     def generarProximoFin(self, reloj):
@@ -24,10 +24,15 @@ class Fin():
     def titularizar(self):
         return ["Proximo Fin"]
     
+    def setSinProximoFin(self):
+        self.proximoFin = ""
 
 
 
     def getProxFin(self):
+        if self.proximoFin == "":
+            return 9999999999999999999999999999999
+        
         return self.proximoFin
 
     
