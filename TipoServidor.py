@@ -68,9 +68,9 @@ class TipoServidor:
         self.cola -= 1
 
     def preguntarSiHayCola(self):
-        if self.cola == 0:
-            return False
-        else:
+        if self.cola != 0:
             return True
+        else:
+            return False
 
 

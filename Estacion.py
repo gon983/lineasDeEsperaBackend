@@ -84,11 +84,11 @@ class Estacion:
 
     def preguntarSiHayColaParaElTipoDeServicio(self, nombreTipoServidor):
         if nombreTipoServidor == self.surtidores.getNombre():
-            self.surtidores.preguntarSiHayCola()
+            return self.surtidores.preguntarSiHayCola()
         elif nombreTipoServidor == self.empleadosGomeria.getNombre():
-            self.empleadosGomeria.preguntarSiHayCola()
+            return self.empleadosGomeria.preguntarSiHayCola()
         elif nombreTipoServidor == self.empleadosVentaAccesorios.getNombre():
-            self.empleadosVentaAccesorios.preguntarSiHayCola()
+            return self.empleadosVentaAccesorios.preguntarSiHayCola()
         else:
             print("El nombre del servidor no coincida con el pasado por parametro")
 
