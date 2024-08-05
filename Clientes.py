@@ -69,6 +69,6 @@ class Clientes:
             tipoServidorTransitorio = vEstado[3]
             numeroServidorTransitorio = vEstado[4]
             if tipoServidorTransitorio == tipoServidorAnterior and numeroServidorTransitorio == numeroServidorAnterior:
-                return id
+                return int(id)
 
             
