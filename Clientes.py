@@ -24,7 +24,7 @@ class Clientes:
     def getProxLlegada(self):
         tLlegada = self.proximaLlegada.getProxLlegada()
         nombreLlegada = "llegadaCliente_"
-        continuacionNombre = str(len(self.vClientes) + 1) 
+        continuacionNombre =  str(self.proximoId)
         nombreLlegada += continuacionNombre
         return tLlegada, nombreLlegada
 
