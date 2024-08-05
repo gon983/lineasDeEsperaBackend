@@ -75,9 +75,9 @@ class Simulacion:
         # nombre y numero servidor anterior significa "nombre y numero del servidor que finaliza su servicio"
         nombreServidorAnterior, numeroServidorAnterior = self.desamblarNombreFin(nombreFin)
         # tratamos al cliente que consumio el servicio
-        if nombreServidorAnterior=="surtidor" and self.seVaDelSistema():
-            pass
-        else: # si no se va del sistema va a gomeria o a venta de accesorios
+        if (nombreServidorAnterior != "surtidor") or (nombreServidorAnterior == "surtidor" and self.seVaDelSistema()) :
+            pass # eliminar cliente
+        else: # si viene de surtidores y no es eliminado -> va a gomeria o a venta de accesorios
             nombreTipoServidor = self.aDondeVoy(0.4)
             nombreServidorLibre , numeroServidorLibre = self.estacion.tenesServidorDeEsteTipoLibre(nombreTipoServidor)
 
