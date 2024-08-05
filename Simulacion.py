@@ -73,6 +73,7 @@ class Simulacion:
 
     
     def procesarFin(self, reloj , nombreFin):
+        # nombre y numero servidor anterior significa "nombre y numero del servidor que finaliza su servicio"
         nombreServidorAnterior, numeroServidorAnterior = self.desamblarNombreFin(nombreFin)
         # tratamos al cliente que consumio el servicio
         if nombreServidorAnterior=="surtidor" and self.seVaDelSistema():
@@ -96,9 +97,10 @@ class Simulacion:
         if self.estacion.preguntarSiHayColaParaElTipoDeServicio(nombreServidorAnterior):
             self.estacion.asignarServidor(nombreServidorAnterior, numeroServidorAnterior, reloj)
             self.estacion.sacarDeCola(nombreServidorAnterior)
-            self.clientes.atenderClienteDeCola()
+            # self.clientes.atenderClienteDeCola()
         else:
-            self.estacion.liberarServidor(nombreServidorAnterior, numeroServidorAnterior)
+            # self.estacion.liberarServidor(nombreServidorAnterior, numeroServidorAnterior)
+            pass
             
         
 
