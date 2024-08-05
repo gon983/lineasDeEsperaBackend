@@ -48,11 +48,11 @@ class Clientes:
             if cliente.getId() == id:
                 cliente.serAtendido(tipoServidorNuevo, numeroServidorNuevo)
 
-    def asignarClienteEnCola(self, tipoServidorAnterior, numeroServidorAnterior, nombreTipoServidor):
+    def asignarClienteEnCola(self, tipoServidorAnterior, numeroServidorAnterior, tipoServidorNuevo):
         id = self.buscarCliente(tipoServidorAnterior, numeroServidorAnterior)
         for cliente in self.vClientes:
             if cliente.getId() == id:
-                cliente.aCola(nombreTipoServidor)
+                cliente.aCola(tipoServidorNuevo)
 
     def atenderClienteDeCola(self, tipoServidorQueLeAsignare, numeroServidorQueLeAsignare):
         id = self.buscarCliente(tipoServidorQueLeAsignare, numeroServidorQueLeAsignare )

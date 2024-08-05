@@ -74,33 +74,38 @@ class Simulacion:
     def procesarFin(self, reloj , nombreFin):
         # nombre y numero servidor anterior significa "nombre y numero del servidor que finaliza su servicio"
         nombreServidorAnterior, numeroServidorAnterior = self.desamblarNombreFin(nombreFin)
+        print("Procesar FIN : LLega el nombre de FIN", nombreFin)
 
-        # sobre el servicio que finalizo, si hay cola , hacemos atender al cliente que estaba esperando y sino ponemos al servidor libre
-        if self.estacion.preguntarSiHayColaParaElTipoDeServicio(nombreServidorAnterior):
-            self.estacion.asignarServidor(nombreServidorAnterior, numeroServidorAnterior, reloj)
-            self.estacion.sacarDeCola(nombreServidorAnterior)
-            self.clientes.atenderClienteDeCola(nombreServidorAnterior, numeroServidorAnterior)
-        else:
-            self.estacion.liberarServidor(nombreServidorAnterior, numeroServidorAnterior)
+        
 
         # tratamos al cliente que consumio el servicio
         if (nombreServidorAnterior != "surtidor") or (nombreServidorAnterior == "surtidor" and self.seVaDelSistema()) :
             self.clientes.eliminarCliente(nombreServidorAnterior, numeroServidorAnterior)
-        else: # si viene de surtidores y no es eliminado -> va a gomeria o a venta de accesorios
+        elif (nombreServidorAnterior == "surtidor"): # si viene de surtidores y no es eliminado -> va a gomeria o a venta de accesorios
             nombreTipoServidor = self.aDondeVoy(0.4)
             nombreServidorLibre , numeroServidorLibre = self.estacion.tenesServidorDeEsteTipoLibre(nombreTipoServidor)
 
             # si no hay un servidor libre, asigna un cliente a cola del servidor libre
             if nombreServidorLibre == False and numeroServidorLibre == False:
+                print("Procesar Fin : NO hay un servidor libre para el cliente de surtidor")
                 self.estacion.asignarACola(nombreTipoServidor)
                 self.clientes.asignarClienteEnCola(nombreServidorAnterior, numeroServidorAnterior, nombreTipoServidor)
             # si hay un servidor libre asigna el cliente siendo atendido en el servidor libre
-            elif isinstance(nombreServidorLibre, str) and isinstance(numeroServidorLibre, int): 
+            elif isinstance(nombreServidorLibre, str) and isinstance(numeroServidorLibre, int):
+                print("Procesar FIN: hay un servidor libre para el cliente de surtidor")
                 self.estacion.asignarServidor(nombreServidorLibre, numeroServidorLibre, reloj)# asignar servidor incluye cambiarle el estado y generar cuando va a finalizar 
                 self.clientes.asignarClienteAtendido(nombreServidorAnterior, numeroServidorAnterior, nombreServidorLibre, numeroServidorLibre) 
             else:
                 print("Error de logica en procesar llegada")
 
+        # sobre el servicio que finalizo, si hay cola , hacemos atender al cliente que estaba esperando y sino ponemos al servidor libre
+        if self.estacion.preguntarSiHayColaParaElTipoDeServicio(nombreServidorAnterior):
+            print("Procesar fin: habia cola, asi que al cliente que estaba esperando lo asignamos al servidor que acaba de finalozar")
+            self.estacion.asignarServidor(nombreServidorAnterior, numeroServidorAnterior, reloj)
+            self.estacion.sacarDeCola(nombreServidorAnterior)
+            self.clientes.atenderClienteDeCola(nombreServidorAnterior, 0)
+        else:
+            self.estacion.liberarServidor(nombreServidorAnterior, numeroServidorAnterior)
         
             
             

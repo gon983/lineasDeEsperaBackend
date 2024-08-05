@@ -24,3 +24,6 @@ class Cliente:
 
     def aCola(self, tipoServidor):
         self.estado = "C_"+ str(self.id) + "_" + "enCola_" + str(tipoServidor) + "_" + "0"
+
+
+    
