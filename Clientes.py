@@ -48,25 +48,26 @@ class Clientes:
         self.vClientes.append(cliente)
 
     def asignarClienteAtendido(self, tipoServidorAnterior, numeroServidorAnterior, tipoServidorNuevo, numeroServidorNuevo):
-        cliente = self.buscarCliente(tipoServidorAnterior, numeroServidorAnterior)
-        cliente.serAtendido(tipoServidorNuevo, numeroServidorNuevo)
+        id = self.buscarCliente(tipoServidorAnterior, numeroServidorAnterior)
+        for cliente in self.vClientes:
+            if cliente.getId() == id:
+                cliente.serAtendido(tipoServidorNuevo, numeroServidorNuevo)
 
     def asignarClienteEnCola(self, tipoServidorAnterior, numeroServidorAnterior, nombreTipoServidor):
-        cliente = self.buscarCliente(tipoServidorAnterior, numeroServidorAnterior)
-        cliente.aCola(nombreTipoServidor)
+        id = self.buscarCliente(tipoServidorAnterior, numeroServidorAnterior)
+        for cliente in self.vClientes:
+            if cliente.getId() == id:
+                cliente.aCola(nombreTipoServidor)
 
     
     def buscarCliente(self, tipoServidorAnterior, numeroServidorAnterior): #les pase el servidor q estaba libre. necesito pasarles ademas el servidor anterior
         for cliente in self.vClientes:
             estadoCliente = cliente.getEstado()
-            print(estadoCliente)
-            print(tipoServidorAnterior)
-            print(numeroServidorAnterior)
             vEstado = estadoCliente.split('_')
-            # id = vEstado[1]
+            id = vEstado[1]
             tipoServidorTransitorio = vEstado[3]
             numeroServidorTransitorio = vEstado[4]
             if tipoServidorTransitorio == tipoServidorAnterior and numeroServidorTransitorio == numeroServidorAnterior:
-                return cliente
+                return id
 
             

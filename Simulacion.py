@@ -147,7 +147,7 @@ class Simulacion:
         return nombreTipoServidor, numeroServidor
     
     def seVaDelSistema(self):
-        if random.random() <= 0.99:
+        if random.random() <= 0.001:
             return True
         return False
     

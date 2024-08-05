@@ -16,6 +16,9 @@ class Cliente:
     def getNombre(self):
         return self.nombre
     
+    def getId(self):
+        return self.id
+    
     def serAtendido(self, tipoServidor, numeroServidor):
         self.estado = "C_"+ str(self.id) + "_"+ "SA_" + str(tipoServidor) + "_" + str(numeroServidor)
 
