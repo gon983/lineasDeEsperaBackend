@@ -115,7 +115,7 @@ class Simulacion:
         # Primero genera la proxima llegada
         self.clientes.generarProxLlegada(reloj)
         # Decide que servicio, la llegada que estamos procesando va a tomar
-        nombreTipoServidor = self.decidirServidor(0.8,0.08) #Aca se pueden cambiar las probabilidades-> primer argumento carga combustible, segundo gomeria y lo q sobra ventaAccesorios
+        nombreTipoServidor = self.decidirServidor(0.8,0.12) #Aca se pueden cambiar las probabilidades-> primer argumento carga combustible, segundo gomeria y lo q sobra ventaAccesorios
         # Pregunta si de ese tipo de servidor hay alguno libre
         nombreServidor, numeroServidor = self.estacion.tenesServidorDeEsteTipoLibre(nombreTipoServidor) # retorna False, False si no encuentra el servidor
 
