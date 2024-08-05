@@ -74,9 +74,18 @@ class Simulacion:
     def procesarFin(self, reloj , nombreFin):
         # nombre y numero servidor anterior significa "nombre y numero del servidor que finaliza su servicio"
         nombreServidorAnterior, numeroServidorAnterior = self.desamblarNombreFin(nombreFin)
+
+        # sobre el servicio que finalizo, si hay cola , hacemos atender al cliente que estaba esperando y sino ponemos al servidor libre
+        if self.estacion.preguntarSiHayColaParaElTipoDeServicio(nombreServidorAnterior):
+            self.estacion.asignarServidor(nombreServidorAnterior, numeroServidorAnterior, reloj)
+            self.estacion.sacarDeCola(nombreServidorAnterior)
+            self.clientes.atenderClienteDeCola(nombreServidorAnterior, numeroServidorAnterior)
+        else:
+            self.estacion.liberarServidor(nombreServidorAnterior, numeroServidorAnterior)
+
         # tratamos al cliente que consumio el servicio
         if (nombreServidorAnterior != "surtidor") or (nombreServidorAnterior == "surtidor" and self.seVaDelSistema()) :
-            pass # eliminar cliente
+            self.clientes.eliminarCliente(nombreServidorAnterior, numeroServidorAnterior)
         else: # si viene de surtidores y no es eliminado -> va a gomeria o a venta de accesorios
             nombreTipoServidor = self.aDondeVoy(0.4)
             nombreServidorLibre , numeroServidorLibre = self.estacion.tenesServidorDeEsteTipoLibre(nombreTipoServidor)
@@ -92,13 +101,7 @@ class Simulacion:
             else:
                 print("Error de logica en procesar llegada")
 
-        # sobre el servicio que finalizo, si hay cola , hacemos atender al cliente que estaba esperando y sino ponemos al servidor libre
-        if self.estacion.preguntarSiHayColaParaElTipoDeServicio(nombreServidorAnterior):
-            self.estacion.asignarServidor(nombreServidorAnterior, numeroServidorAnterior, reloj)
-            self.estacion.sacarDeCola(nombreServidorAnterior)
-            self.clientes.atenderClienteDeCola(nombreServidorAnterior, numeroServidorAnterior)
-        else:
-            self.estacion.liberarServidor(nombreServidorAnterior, numeroServidorAnterior)
+        
             
             
         
