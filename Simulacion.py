@@ -100,7 +100,7 @@ class Simulacion:
 
         # sobre el servicio que finalizo, si hay cola , hacemos atender al cliente que estaba esperando y sino ponemos al servidor libre
         if self.estacion.preguntarSiHayColaParaElTipoDeServicio(nombreServidorAnterior):
-            print("Procesar fin: habia cola, asi que al cliente que estaba esperando lo asignamos al servidor que acaba de finalozar")
+            print("Procesar fin: habia cola, asi que al cliente que estaba esperando lo asignamos al servidor que acaba de finalizar")
             self.estacion.asignarServidor(nombreServidorAnterior, numeroServidorAnterior, reloj)
             self.estacion.sacarDeCola(nombreServidorAnterior)
             self.clientes.atenderClienteDeCola(nombreServidorAnterior, 0)

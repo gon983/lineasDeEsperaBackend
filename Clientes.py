@@ -39,7 +39,8 @@ class Clientes:
         self.vClientes.append(cliente)
 
     def crearClienteEnCola(self, tipoServidor, horaLlegada, seraVisible):
-        id = len(self.vClientes) + 1
+        id = self.proximoId
+        self.proximoId += 1
         estado = "C_"+ str(id) + "_" + "enCola_" + str(tipoServidor) + "_" + "0"
         cliente = Cliente(id, estado, horaLlegada, seraVisible)
         self.vClientes.append(cliente)
