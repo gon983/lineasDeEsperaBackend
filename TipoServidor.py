@@ -45,9 +45,9 @@ class TipoServidor:
         return False, False
 
     def asignarServidor(self, numeroServidor, reloj):
+        numeroServidor = int(numeroServidor)
         for servidor in self.vTipoServidor:
-            numeroServidor = int(numeroServidor)
-            if servidor.getNumero() == numeroServidor and servidor.estasLibre():
+            if servidor.getNumero() == numeroServidor:
                 servidor.ocuparte(reloj)
 
     def liberarServidor(self, numeroServidor):
