@@ -5,6 +5,7 @@ class Clientes:
     def __init__(self, media, desviacion):
         self.vClientes = [] 
         self.proximaLlegada = Llegada(media,  desviacion)
+        self.proximoId = 1
 
     def vectorizarLlegada(self):
         return self.proximaLlegada.vectorizar()
@@ -31,7 +32,8 @@ class Clientes:
         self.proximaLlegada.generarProximaLlegada(reloj)
 
     def crearClienteAtendido(self,  tipoServidor, numeroServidor , horaLlegada, seraVisible): 
-        id = len(self.vClientes) + 1
+        id = self.proximoId
+        self.proximoId += 1
         estado = "C_"+ str(id) + "_"+ "SA_" + str(tipoServidor) + "_" + str(numeroServidor)
         cliente = Cliente(id, estado, horaLlegada, seraVisible)
         self.vClientes.append(cliente)
