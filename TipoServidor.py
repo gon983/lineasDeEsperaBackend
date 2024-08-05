@@ -46,13 +46,17 @@ class TipoServidor:
 
     def asignarServidor(self, numeroServidor, reloj):
         for servidor in self.vTipoServidor:
+            numeroServidor = int(numeroServidor)
             if servidor.getNumero() == numeroServidor and servidor.estasLibre():
                 servidor.ocuparte(reloj)
 
     def liberarServidor(self, numeroServidor):
         for servidor in self.vTipoServidor:
+            numeroServidor = int(numeroServidor)
             if servidor.getNumero() == numeroServidor and servidor.estasOcupado():
                 servidor.liberarte()
+                break
+        
 
     def getNombre(self):
         return self.nombreTipo
