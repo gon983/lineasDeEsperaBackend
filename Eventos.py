@@ -52,12 +52,12 @@ class Llegada():
         self.generarProximaLlegada(0)
 
     def crearVrnd(self):
-        v = []
-        r1 = round(random.random(), 4)
-        r2 = round(random.random(),4)
-        v.append(r1)
-        v.append(r2)
-        self.vRnd = v
+        while True:
+            r1 = round(random.random(), 4)
+            r2 = round(random.random(), 4)
+            if r1 > 0 and r1 < 1 and r2 > 0 and r2 < 1:  # Asegurarse de que r1 y r2 estén en el rango (0, 1)
+                self.vRnd = [r1, r2]
+                break
 
     def vectorizar(self):
         return [self.proximaLlegada]
