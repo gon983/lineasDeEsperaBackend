@@ -97,7 +97,7 @@ class Simulacion:
         if self.estacion.preguntarSiHayColaParaElTipoDeServicio(nombreServidorAnterior):
             self.estacion.asignarServidor(nombreServidorAnterior, numeroServidorAnterior, reloj)
             self.estacion.sacarDeCola(nombreServidorAnterior)
-            # self.clientes.atenderClienteDeCola()
+            self.clientes.atenderClienteDeCola(nombreServidorAnterior, numeroServidorAnterior)
         else:
             self.estacion.liberarServidor(nombreServidorAnterior, numeroServidorAnterior)
             

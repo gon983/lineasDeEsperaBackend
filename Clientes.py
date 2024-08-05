@@ -31,11 +31,6 @@ class Clientes:
         self.proximaLlegada.generarProximaLlegada(reloj)
 
     def crearClienteAtendido(self,  tipoServidor, numeroServidor , horaLlegada, seraVisible): 
-        #recordar usar el booleano que maneja 
-        # que los clientes que comienzan 
-        # por combustible despues pueden ir a gomeria o a compra Accesorios
-        # tambien qie se necesita la hora de llegada para despues calcular 
-        # tiempo de permanencia maximo en el sistema
         id = len(self.vClientes) + 1
         estado = "C_"+ str(id) + "_"+ "SA_" + str(tipoServidor) + "_" + str(numeroServidor)
         cliente = Cliente(id, estado, horaLlegada, seraVisible)
@@ -58,6 +53,12 @@ class Clientes:
         for cliente in self.vClientes:
             if cliente.getId() == id:
                 cliente.aCola(nombreTipoServidor)
+
+    def atenderClienteDeCola(self, tipoServidorQueLeAsignare, numeroServidorQueLeAsignare):
+        id = self.buscarCliente(tipoServidorQueLeAsignare, numeroServidorQueLeAsignare )
+        for cliente in self.vClientes:
+            if cliente.getId() == id:
+                cliente.serAtendido(tipoServidorQueLeAsignare, numeroServidorQueLeAsignare)
 
     
     def buscarCliente(self, tipoServidorAnterior, numeroServidorAnterior): #les pase el servidor q estaba libre. necesito pasarles ademas el servidor anterior
