@@ -44,7 +44,6 @@ class Simulacion:
         # Despues va la Estacion...
         vFila += self.estacion.vectorizarEstacion()
         # Dspues las colas maximas y el t max de un cliente
-        print(self.colasMaximas)
         vFila += self.colasMaximas
         vFila += [self.maxTcliente]
         # y finalmente los clientes
