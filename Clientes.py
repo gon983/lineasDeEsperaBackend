@@ -59,7 +59,7 @@ class Clientes:
                 cliente.aCola(tipoServidorNuevo)
 
     def atenderClienteDeCola(self, tipoServidorQueLeAsignare, numeroServidorQueLeAsignare):
-        id = self.buscarCliente(tipoServidorQueLeAsignare, numeroServidorQueLeAsignare )
+        id = self.buscarCliente(tipoServidorQueLeAsignare, 0 )
         for cliente in self.vClientes:
             if cliente.getId() == id:
                 cliente.serAtendido(tipoServidorQueLeAsignare, numeroServidorQueLeAsignare)
