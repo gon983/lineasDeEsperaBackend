@@ -96,6 +96,7 @@ class Simulacion:
         elif (nombreServidorAnterior == "surtidor"): # si viene de surtidores y no es eliminado -> va a gomeria o a venta de accesorios
             nombreTipoServidor = self.aDondeVoy(0.4)
             nombreServidorLibre , numeroServidorLibre = self.estacion.tenesServidorDeEsteTipoLibre(nombreTipoServidor)
+            
 
             # si no hay un servidor libre, asigna un cliente a cola del servidor libre
             if nombreServidorLibre == False and numeroServidorLibre == False:
@@ -112,7 +113,7 @@ class Simulacion:
         if self.estacion.preguntarSiHayColaParaElTipoDeServicio(nombreServidorAnterior):
             self.estacion.asignarServidor(nombreServidorAnterior, numeroServidorAnterior, reloj)
             self.estacion.sacarDeCola(nombreServidorAnterior)
-            self.clientes.atenderClienteDeCola(nombreServidorAnterior, 0)
+            self.clientes.atenderClienteDeCola(nombreServidorAnterior, numeroServidorAnterior)
         else:
 
             self.estacion.liberarServidor(nombreServidorAnterior, numeroServidorAnterior)

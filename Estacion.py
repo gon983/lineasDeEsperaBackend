@@ -27,11 +27,15 @@ class Estacion:
     
     def tenesServidorDeEsteTipoLibre(self, nombreTipoServidor):
         nombreServidor, numero = False, False
+        
         if nombreTipoServidor == self.surtidores.getNombre():
             nombreServidor, numero =  self.surtidores.tenesAlgunoLibre()
+            
         elif nombreTipoServidor == self.empleadosGomeria.getNombre():
+            
             nombreServidor, numero = self.empleadosGomeria.tenesAlgunoLibre()
         elif nombreTipoServidor == self.empleadosVentaAccesorios.getNombre():
+            
             nombreServidor, numero = self.empleadosVentaAccesorios.tenesAlgunoLibre()
         else:
             print("Error en la parte de tenes servidor de este tipo libre")
