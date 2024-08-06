@@ -85,7 +85,7 @@ class Clientes:
             id = vEstado[1]
             tipoServidorTransitorio = vEstado[3]
             numeroServidorTransitorio = vEstado[4]
-            if tipoServidorTransitorio == tipoServidorAnterior and numeroServidorTransitorio == numeroServidorAnterior:
+            if tipoServidorTransitorio == tipoServidorAnterior and numeroServidorTransitorio == str(numeroServidorAnterior):
                 return int(id)
             
     def getMaxTCliente(self):
