@@ -15,7 +15,7 @@ class Simulacion:
         self.numeroIteracion = 0
         self.lineaInicioSimulacion = lineaInicioVisualizacion
         self.lineaFinSimulacion = lineaFinVisualizacion
-        self.maxTcliente = 0
+        self.maxTCliente = 0
         self.colasMaximas = [0,0,0]
         self.estacion = Estacion(cantidadSurtidores, cantidadEmpleadosGomeria, cantidadEmpleadosVentaAccesorios,
                                 aDuracionCargaCombustible, bDuracionCargaCombustible,
@@ -44,6 +44,7 @@ class Simulacion:
         # Despues va la Estacion...
         vFila += self.estacion.vectorizarEstacion()
         # Dspues las colas maximas y el t max de un cliente
+        print(self.colasMaximas)
         vFila += self.colasMaximas
         vFila += [self.maxTcliente]
         # y finalmente los clientes
@@ -59,7 +60,8 @@ class Simulacion:
         for i in range(self.cantidadLineasASimular):
             
             self.reloj, self.eventoActual = self.procesarEvento()
-            self.colasMaximas = self.getColasMaximas(self.colasMaximas)
+            self.colasMaximas = self.estacion.getColasMaximas(self.colasMaximas)
+            self.maxTcliente = self.clientes.getMaxTCliente()
             if (i >= self.lineaInicioSimulacion and i <= self.lineaFinSimulacion) or (i == self.cantidadLineasASimular - 1):
                 fila = [self.generarFila()]
                 tabla.append(fila)
@@ -91,7 +93,7 @@ class Simulacion:
 
         # tratamos al cliente que consumio el servicio
         if (nombreServidorAnterior != "surtidor") or (nombreServidorAnterior == "surtidor" and self.seVaDelSistema()) :
-            self.maxTcliente = self.clientes.eliminarCliente(nombreServidorAnterior, numeroServidorAnterior, self.maxTcliente, reloj) #Aca max T SIstema y en asignar a cola max cola
+            self.clientes.eliminarCliente(nombreServidorAnterior, numeroServidorAnterior,  reloj) #Aca max T SIstema y en asignar a cola max cola
         elif (nombreServidorAnterior == "surtidor"): # si viene de surtidores y no es eliminado -> va a gomeria o a venta de accesorios
             nombreTipoServidor = self.aDondeVoy(0.4)
             nombreServidorLibre , numeroServidorLibre = self.estacion.tenesServidorDeEsteTipoLibre(nombreTipoServidor)

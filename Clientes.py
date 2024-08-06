@@ -6,6 +6,7 @@ class Clientes:
         self.vClientes = [] 
         self.proximaLlegada = Llegada(media,  desviacion)
         self.proximoId = 1
+        self.maxTCliente = 0
 
     def vectorizarLlegada(self):
         return self.proximaLlegada.vectorizar()
@@ -63,15 +64,18 @@ class Clientes:
             if cliente.getId() == id:
                 cliente.serAtendido(tipoServidorQueLeAsignare, numeroServidorQueLeAsignare)
 
-    def eliminarCliente(self, tipoServidorAnterior, numeroServidorAnterior, maxTCliente, reloj):
+    def eliminarCliente(self, tipoServidorAnterior, numeroServidorAnterior,  reloj):
         id = self.buscarCliente(tipoServidorAnterior, numeroServidorAnterior)
         for i in range(len(self.vClientes)):
             if self.vClientes[i].getId() == id:
-                tCliente = reloj - self.vClientes[i].getHoraLLegada()
-                if tCliente < maxTCliente:
-                    maxTCliente = tCliente
+                # Esto para calcular el tiempo del cliente en el sistema
+                tCliente = reloj - self.vClientes[i].getHoraLlegada()
+                if tCliente > self.maxTCliente:
+                    self.maxTCliente = tCliente
+                # y aca se elimina
                 self.vClientes.remove(self.vClientes[i])
-                return maxTCliente
+                break
+                
 
     
     def buscarCliente(self, tipoServidorAnterior, numeroServidorAnterior): #les pase el servidor q estaba libre. necesito pasarles ademas el servidor anterior
@@ -83,5 +87,8 @@ class Clientes:
             numeroServidorTransitorio = vEstado[4]
             if tipoServidorTransitorio == tipoServidorAnterior and numeroServidorTransitorio == numeroServidorAnterior:
                 return int(id)
+            
+    def getMaxTCliente(self):
+        return self.maxTCliente
 
             

@@ -118,6 +118,7 @@ class Estacion:
         colasMaximas[0] = self.surtidores.getColaMaxima()
         colasMaximas[1] = self.empleadosGomeria.getColaMaxima()
         colasMaximas[2] = self.empleadosVentaAccesorios.getColaMaxima()
+        return [colasMaximas[0], colasMaximas[1], colasMaximas[2]]
 
 
 
