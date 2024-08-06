@@ -15,6 +15,8 @@ class Simulacion:
         self.numeroIteracion = 0
         self.lineaInicioSimulacion = lineaInicioVisualizacion
         self.lineaFinSimulacion = lineaFinVisualizacion
+        self.maxTcliente = 0
+        self.colasMaximas = [0,0,0]
         self.estacion = Estacion(cantidadSurtidores, cantidadEmpleadosGomeria, cantidadEmpleadosVentaAccesorios,
                                 aDuracionCargaCombustible, bDuracionCargaCombustible,
                                 aDuracionAtGomeria, bDuracionAtGomeria, 
@@ -29,6 +31,9 @@ class Simulacion:
         vFila += self.clientes.titularizarLlegada()
         # Despues va la Estacion...
         vFila += self.estacion.titularizarEstacion()
+        # Despues las colas maximas
+        vFila += ["Max Cola surtidor", "Max Cola Gomeria", "Max Cola venta accesorios"]
+        vFila += ["Max T Cliente"]
         return vFila
 
     def generarFila(self):
@@ -38,6 +43,9 @@ class Simulacion:
         vFila += self.clientes.vectorizarLlegada()
         # Despues va la Estacion...
         vFila += self.estacion.vectorizarEstacion()
+        # Dspues las colas maximas y el t max de un cliente
+        vFila += self.colasMaximas
+        vFila += [self.maxTcliente]
         # y finalmente los clientes
         vFila += self.clientes.vectorizarClientes() # ¿como hago para marcar los que van a "salir en la foto"? #lo voy a hacer con el nombre de los que llegan a su visualizacion
         return vFila
@@ -49,14 +57,17 @@ class Simulacion:
         titulos = [self.titularizar()]
         tabla.append(titulos)
         for i in range(self.cantidadLineasASimular):
-            self.numeroIteracion = i
+            
             self.reloj, self.eventoActual = self.procesarEvento()
-            if (i >= self.lineaInicioSimulacion and i <= self.lineaFinSimulacion) or (i == self.cantidadLineasASimular):
+            self.colasMaximas = self.getColasMaximas(self.colasMaximas)
+            if (i >= self.lineaInicioSimulacion and i <= self.lineaFinSimulacion) or (i == self.cantidadLineasASimular - 1):
                 fila = [self.generarFila()]
                 tabla.append(fila)
+                
+        
     
             
-        return {"simulacion": [tabla]}
+        return {"simulacion": [tabla], "colas": self.colasMaximas, "maxTCliente": self.maxTCliente}
 
 
 
@@ -80,7 +91,7 @@ class Simulacion:
 
         # tratamos al cliente que consumio el servicio
         if (nombreServidorAnterior != "surtidor") or (nombreServidorAnterior == "surtidor" and self.seVaDelSistema()) :
-            self.clientes.eliminarCliente(nombreServidorAnterior, numeroServidorAnterior)
+            self.maxTcliente = self.clientes.eliminarCliente(nombreServidorAnterior, numeroServidorAnterior, self.maxTcliente, reloj) #Aca max T SIstema y en asignar a cola max cola
         elif (nombreServidorAnterior == "surtidor"): # si viene de surtidores y no es eliminado -> va a gomeria o a venta de accesorios
             nombreTipoServidor = self.aDondeVoy(0.4)
             nombreServidorLibre , numeroServidorLibre = self.estacion.tenesServidorDeEsteTipoLibre(nombreTipoServidor)

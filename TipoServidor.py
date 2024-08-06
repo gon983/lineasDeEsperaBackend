@@ -9,6 +9,7 @@ class TipoServidor:
             servidor = Servidor(i+1,a,b)
             self.vTipoServidor.append(servidor)
         self.cola = 0
+        self.colaMax = 0
 
     def vectorizar(self):
         v = []
@@ -63,6 +64,8 @@ class TipoServidor:
     
     def asignarACola(self):
         self.cola += 1
+        if self.colaMax <= self.cola:
+            self.colaMax = self.cola
 
     def sacarDeCola(self):
         self.cola -= 1
@@ -72,5 +75,8 @@ class TipoServidor:
             return True
         else:
             return False
+        
+    def getColaMaxima(self):
+        return self.colaMax
 
 

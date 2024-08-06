@@ -12,7 +12,7 @@ class Fin():
 
 
     def generarProximoFin(self, reloj):
-        rnd = round(random.random(),4)
+        rnd = random.random()
         tiempoAtencion = self.a + (self.b-self.a)* rnd
         self.proximoFin = round(reloj + tiempoAtencion,4)
 

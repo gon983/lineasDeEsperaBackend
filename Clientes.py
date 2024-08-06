@@ -63,12 +63,15 @@ class Clientes:
             if cliente.getId() == id:
                 cliente.serAtendido(tipoServidorQueLeAsignare, numeroServidorQueLeAsignare)
 
-    def eliminarCliente(self, tipoServidorAnterior, numeroServidorAnterior):
+    def eliminarCliente(self, tipoServidorAnterior, numeroServidorAnterior, maxTCliente, reloj):
         id = self.buscarCliente(tipoServidorAnterior, numeroServidorAnterior)
         for i in range(len(self.vClientes)):
             if self.vClientes[i].getId() == id:
+                tCliente = reloj - self.vClientes[i].getHoraLLegada()
+                if tCliente < maxTCliente:
+                    maxTCliente = tCliente
                 self.vClientes.remove(self.vClientes[i])
-                break
+                return maxTCliente
 
     
     def buscarCliente(self, tipoServidorAnterior, numeroServidorAnterior): #les pase el servidor q estaba libre. necesito pasarles ademas el servidor anterior

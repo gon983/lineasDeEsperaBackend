@@ -113,6 +113,11 @@ class Estacion:
             print("El nombre del servidor no coincida con el pasado por parametro")
 
 
+    def getColasMaximas(self, colasMaximas):
+        # colas maximas [maxCSurtidor, maxCGomeria, maxCAccesorios]
+        colasMaximas[0] = self.surtidores.getColaMaxima()
+        colasMaximas[1] = self.empleadosGomeria.getColaMaxima()
+        colasMaximas[2] = self.empleadosVentaAccesorios.getColaMaxima()
 
 
 
