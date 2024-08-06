@@ -133,18 +133,16 @@ class Simulacion:
         nombreServidor, numeroServidor = self.estacion.tenesServidorDeEsteTipoLibre(nombreTipoServidor) # retorna False, False si no encuentra el servidor
 
 
-        esteClienteVaAserVisible = False
-        if self.lineaInicioSimulacion <= self.numeroIteracion <= self.lineaFinSimulacion:
-                esteClienteVaAserVisible = True
+        
 
         # si no hay un servidor libre, crea un cliente en cola
         if nombreServidor == False and numeroServidor == False: # Entonces no hay servidor libre
             self.estacion.asignarACola(nombreTipoServidor)
-            self.clientes.crearClienteEnCola(nombreTipoServidor,reloj, esteClienteVaAserVisible)
+            self.clientes.crearClienteEnCola(nombreTipoServidor,reloj)
         # si hay un servidor libre crea un cliente siendo atendido
         elif isinstance(nombreServidor, str) and isinstance(numeroServidor, int): # Hay Servidor libre!
             self.estacion.asignarServidor(nombreServidor, numeroServidor, reloj)# asignar servidor incluye cambiarle el estado y generar cuando va a finalizar 
-            self.clientes.crearClienteAtendido(nombreServidor, numeroServidor, reloj, esteClienteVaAserVisible) #recordar usar el booleano que maneja que los clientes que comienzan por combustible despues pueden ir a gomeria o a compra Accesorios tambien qie se necesita la hora de llegada para despues calcular tiempo de permanencia maximo en el sistema
+            self.clientes.crearClienteAtendido(nombreServidor, numeroServidor, reloj) #recordar usar el booleano que maneja que los clientes que comienzan por combustible despues pueden ir a gomeria o a compra Accesorios tambien qie se necesita la hora de llegada para despues calcular tiempo de permanencia maximo en el sistema
         else:
             print("Error de logica en procesar llegada")
 

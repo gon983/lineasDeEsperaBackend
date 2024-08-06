@@ -17,8 +17,7 @@ class Clientes:
     def vectorizarClientes(self):
         vAux = []
         for cliente in self.vClientes:
-            if cliente.esVisible():
-                vAux.append(cliente.getEstado())
+            vAux.append(cliente.getEstado())
         return vAux
     
     
@@ -32,18 +31,18 @@ class Clientes:
     def generarProxLlegada(self, reloj):
         self.proximaLlegada.generarProximaLlegada(reloj)
 
-    def crearClienteAtendido(self,  tipoServidor, numeroServidor , horaLlegada, seraVisible): 
+    def crearClienteAtendido(self,  tipoServidor, numeroServidor , horaLlegada): 
         id = self.proximoId
         self.proximoId += 1
         estado = "C_"+ str(id) + "_"+ "SA_" + str(tipoServidor) + "_" + str(numeroServidor)
-        cliente = Cliente(id, estado, horaLlegada, seraVisible)
+        cliente = Cliente(id, estado, horaLlegada)
         self.vClientes.append(cliente)
 
-    def crearClienteEnCola(self, tipoServidor, horaLlegada, seraVisible):
+    def crearClienteEnCola(self, tipoServidor, horaLlegada):
         id = self.proximoId
         self.proximoId += 1
         estado = "C_"+ str(id) + "_" + "enCola_" + str(tipoServidor) + "_" + "0"
-        cliente = Cliente(id, estado, horaLlegada, seraVisible)
+        cliente = Cliente(id, estado, horaLlegada)
         self.vClientes.append(cliente)
 
     def asignarClienteAtendido(self, tipoServidorAnterior, numeroServidorAnterior, tipoServidorNuevo, numeroServidorNuevo):
