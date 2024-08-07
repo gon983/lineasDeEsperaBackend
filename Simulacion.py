@@ -47,7 +47,10 @@ class Simulacion:
         vFila += self.colasMaximas
         vFila += [self.maxTcliente]
         # y finalmente los clientes
-        vFila += self.clientes.vectorizarClientes() # ¿como hago para marcar los que van a "salir en la foto"? #lo voy a hacer con el nombre de los que llegan a su visualizacion
+        if self.contarClientesTotales() <= 150:
+            vFila += self.clientes.vectorizarClientes()
+        else:
+            vFila += ["Por haber mas de 150 clientes se elige no mostrar. Agregar mas servidores"]
         return vFila
 
 
@@ -195,6 +198,8 @@ class Simulacion:
         else:
             return False, ""
 
+    def contarClientesTotales(self):
+        return self.colasMaximas[0] + self.colasMaximas[1] + self.colasMaximas[2]
 
 
     
