@@ -50,7 +50,7 @@ class Simulacion:
         if self.contarClientesTotales() <= 150:
             vFila += self.clientes.vectorizarClientes()
         else:
-            vFila += ["Por haber mas de 150 clientes se elige no mostrar. Agregar mas servidores"]
+            vFila += ["Cantidad clientes en cola > 150. Agregar mas servidores"]
         return vFila
 
 
