@@ -61,14 +61,21 @@ class Simulacion:
             self.reloj, self.eventoActual = self.procesarEvento()
             self.colasMaximas = self.estacion.getColasMaximas(self.colasMaximas)
             self.maxTcliente = self.clientes.getMaxTCliente()
+
+            # Verificacion de que ningun valor de cola se vuelva irreal
+            colaDesbordada, nombreColaDesbordada = self.verificarColasMaximas()
+            if colaDesbordada:
+                return {"colaMaxima": nombreColaDesbordada}
+            
             if (i >= self.lineaInicioSimulacion and i <= self.lineaFinSimulacion) or (i == self.cantidadLineasASimular - 1):
                 fila = [self.generarFila()]
                 tabla.append(fila)
+            
                 
         
     
             
-        return {"simulacion": [tabla], "colas": self.colasMaximas, "maxTCliente": self.maxTCliente}
+        return {"simulacion": [tabla]}
 
 
 
@@ -177,6 +184,18 @@ class Simulacion:
         if rnd <= gomeria:
             return "gomeria"
         return "ventaAccesorios"
+    
+    def verificarColasMaximas(self):
+        if self.colasMaximas[0] > 1000:
+            return True, "La simulacion llego a valores irreales de cola en los surtidores. Intente nuevamente agregando mas servidores en este servicio"
+        elif self.colasMaximas[1] > 1000:
+            return True, "La simulacion llego a valores irreales de cola en la atencion de gomeria. Intente nuevamente agregando mas servidores en este servicio"
+        elif self.colasMaximas[2] > 1000:
+            return True, "La simulacion llego a valores irreales de cola en la venta de accesorios . Intente nuevamente agregando mas servidores en este servicio"
+        else:
+            return False, ""
+
+
 
     
     
