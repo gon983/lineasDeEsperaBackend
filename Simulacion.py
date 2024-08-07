@@ -101,7 +101,7 @@ class Simulacion:
         if (nombreServidorAnterior != "surtidor") or (nombreServidorAnterior == "surtidor" and self.seVaDelSistema()) :
             self.clientes.eliminarCliente(nombreServidorAnterior, numeroServidorAnterior,  reloj) #Aca max T SIstema y en asignar a cola max cola
         elif (nombreServidorAnterior == "surtidor"): # si viene de surtidores y no es eliminado -> va a gomeria o a venta de accesorios
-            nombreTipoServidor = self.aDondeVoy(0.4)
+            nombreTipoServidor = self.aDondeVoy(0.4) # Probabilidad de que vaya a gomeria
             nombreServidorLibre , numeroServidorLibre = self.estacion.tenesServidorDeEsteTipoLibre(nombreTipoServidor)
             
 

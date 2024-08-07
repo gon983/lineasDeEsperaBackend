@@ -88,6 +88,6 @@ class Clientes:
                 return int(id)
             
     def getMaxTCliente(self):
-        return self.maxTCliente
+        return round(self.maxTCliente,4)
 
             
