@@ -17,23 +17,36 @@ class Simulacion:
         self.lineaFinSimulacion = lineaFinVisualizacion
         self.maxTCliente = 0
         self.colasMaximas = [0,0,0]
+        self.colas = [0,0,0]
         self.estacion = Estacion(cantidadSurtidores, cantidadEmpleadosGomeria, cantidadEmpleadosVentaAccesorios,
                                 aDuracionCargaCombustible, bDuracionCargaCombustible,
                                 aDuracionAtGomeria, bDuracionAtGomeria, 
                                 aDuracionVentaAccesorios, bDuracionVentaAccesorios)
         self.clientes = Clientes(llegadaClientesMedia, llegadaClientesDesviacion) 
-    
+        self.aDondeIre = False
+        self.rndADondeVa = ""
+        self.stringADondeVa = ""
+
+        self.meVoyDelSistema = False
+        self.rndMeVoyDelSistema = ""
+
+        self.seDioUnSegundoServicio = False
+        self.rndSegundoServicio = ""
+        self.strSegundoServicio = ""
+
+        self.hayMuchaColaEnSurtidores = False
 
     def titularizar(self):
         # Primero van el reloj y el evento actual
         vFila = ["Reloj", "Evento"]
         # Despues va la llegada de clientes
         vFila += self.clientes.titularizarLlegada()
+        vFila += ["rnd", "A donde va"]
         # Despues va la Estacion...
         vFila += self.estacion.titularizarEstacion()
         # Despues las colas maximas
-        vFila += ["Max Cola surtidor", "Max Cola Gomeria", "Max Cola venta accesorios"]
-        vFila += ["Max T Cliente"]
+        vFila += ["Max Cola surtidor", "Max Cola Gomeria",  "Max Cola venta accesorios"]
+        vFila += ["Max T Cliente", "rnd se va del sistema","se va del sistema", "rnd segundo servicio", "a donde voy","clientes"]
         return vFila
 
     def generarFila(self):
@@ -41,11 +54,15 @@ class Simulacion:
         vFila = [self.reloj, self.eventoActual]
         # Despues va la llegada de clientes
         vFila += self.clientes.vectorizarLlegada()
+        vFila += self.mostrarADondeVa()
         # Despues va la Estacion...
         vFila += self.estacion.vectorizarEstacion()
         # Dspues las colas maximas y el t max de un cliente
         vFila += self.colasMaximas
         vFila += [self.maxTcliente]
+        # si se vannnn 
+        vFila += self.mostrarSiSeVan()
+        vFila += self.mostrarSiSeDioUnSegundoServicio()
         # y finalmente los clientes
         if self.contarClientesTotales() <= 150:
             vFila += self.clientes.vectorizarClientes()
@@ -61,9 +78,10 @@ class Simulacion:
         tabla.append(titulos)
         for i in range(self.cantidadLineasASimular):
             
-            self.reloj, self.eventoActual = self.procesarEvento()
+            
             self.colasMaximas = self.estacion.getColasMaximas(self.colasMaximas)
             self.maxTcliente = self.clientes.getMaxTCliente()
+            
 
             # Verificacion de que ningun valor de cola se vuelva irreal
             colaDesbordada, nombreColaDesbordada = self.verificarColasMaximas()
@@ -74,6 +92,7 @@ class Simulacion:
                 fila = [self.generarFila()]
                 tabla.append(fila)
             
+            self.reloj, self.eventoActual = self.procesarEvento()
                 
         
     
@@ -106,6 +125,9 @@ class Simulacion:
         elif (nombreServidorAnterior == "surtidor"): # si viene de surtidores y no es eliminado -> va a gomeria o a venta de accesorios
             nombreTipoServidor = self.aDondeVoy(0.4) # Probabilidad de que vaya a gomeria
             nombreServidorLibre , numeroServidorLibre = self.estacion.tenesServidorDeEsteTipoLibre(nombreTipoServidor)
+
+            
+            
             
 
             # si no hay un servidor libre, asigna un cliente a cola del servidor libre
@@ -145,10 +167,17 @@ class Simulacion:
 
         
 
+        self.colas = self.estacion.getColas(self.colas)
         # si no hay un servidor libre, crea un cliente en cola
-        if nombreServidor == False and numeroServidor == False: # Entonces no hay servidor libre
+        if nombreServidor == False and numeroServidor == False:
+            # Entonces no hay servidor libre
             self.estacion.asignarACola(nombreTipoServidor)
             self.clientes.crearClienteEnCola(nombreTipoServidor,reloj)
+            if self.colas[0] >= 5 and nombreTipoServidor == "surtidor":
+                self.clientes.eliminarCliente(nombreTipoServidor, 0, reloj)
+                self.estacion.sacarDeCola(nombreTipoServidor)
+                
+            
         # si hay un servidor libre crea un cliente siendo atendido
         elif isinstance(nombreServidor, str) and isinstance(numeroServidor, int): # Hay Servidor libre!
             self.estacion.asignarServidor(nombreServidor, numeroServidor, reloj)# asignar servidor incluye cambiarle el estado y generar cuando va a finalizar 
@@ -160,13 +189,17 @@ class Simulacion:
 
     
     def decidirServidor(self, cargarCombustible, gomeria):
-        rnd = random.random()
+        self.aDondeIre = True
+        self.rndADondeVa = round(random.random(),4)
         gomeria = cargarCombustible + gomeria
-        if rnd <= cargarCombustible:
+        if self.rndADondeVa <= cargarCombustible:
+            self.stringADondeVa = "surtidores"
             return "surtidor"
-        elif rnd <= gomeria:
+        elif self.rndADondeVa <= gomeria:
+            self.stringADondeVa = "gomeria"
             return "gomeria"
         else:
+            self.stringADondeVa = "ventaAccesorios"
             return "ventaAccesorios"
         
     def desamblarNombreFin(self,nombreFin):
@@ -178,14 +211,19 @@ class Simulacion:
         return nombreTipoServidor, numeroServidor
     
     def seVaDelSistema(self):
-        if random.random() <= 0.5:
+        self.meVoyDelSistema = True
+        self.rndMeVoyDelSistema = round(random.random(), 4)
+        if self.rndMeVoyDelSistema <= 0.5:
             return True
         return False
     
     def aDondeVoy(self, gomeria):
-        rnd = random.random()
-        if rnd <= gomeria:
+        self.seDioUnSegundoServicio = True
+        self.rndSegundoServicio = random.random()
+        if self.rndSegundoServicio <= gomeria:
+            self.strSegundoServicio = "gomeria"
             return "gomeria"
+        self.strSegundoServicio = "ventaAccesorios"
         return "ventaAccesorios"
     
     def verificarColasMaximas(self):
@@ -200,9 +238,26 @@ class Simulacion:
 
     def contarClientesTotales(self):
         return self.colasMaximas[0] + self.colasMaximas[1] + self.colasMaximas[2]
-
-
     
+
+    def mostrarADondeVa(self):
+        if self.aDondeIre:
+            self.aDondeIre = False
+            return [self.rndADondeVa, self.stringADondeVa ]
+        return ["", ""]
+    
+    def mostrarSiSeVan(self):
+        if self.meVoyDelSistema:
+            self.meVoyDelSistema = False
+            return [self.rndMeVoyDelSistema, "SI"]
+        return ["", "NO"]
+
+
+    def mostrarSiSeDioUnSegundoServicio(self):
+        if self.seDioUnSegundoServicio:
+            self.seDioUnSegundoServicio = False
+            return [self.rndSegundoServicio, self.strSegundoServicio]
+        return ["", ""]
     
 
     

@@ -78,5 +78,8 @@ class TipoServidor:
         
     def getColaMaxima(self):
         return self.colaMax
+    
+    def getColas(self):
+        return self.cola
 
 

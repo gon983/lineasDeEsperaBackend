@@ -9,20 +9,26 @@ class Fin():
         self.a = a
         self.b = b
         self.proximoFin = ""
+        self.tiempoAtencion = ""
+        self.seGeneroElFin = False
 
 
     def generarProximoFin(self, reloj):
-        rnd = random.random()
-        tiempoAtencion = self.a + (self.b-self.a)* rnd
-        self.proximoFin = round(reloj + tiempoAtencion,4)
+        self.seGeneroElFin = True
+        self.rnd = random.random()
+        self.tiempoAtencion = self.a + (self.b-self.a)* self.rnd
+        self.proximoFin = round(reloj + self.tiempoAtencion,4)
 
         
     
     def vectorizar(self):
-        return [self.proximoFin]
+        if self.seGeneroElFin:
+            self.seGeneroElFin = False
+            return [round(self.rnd,4), self.tiempoAtencion, self.proximoFin]
+        return ["","",self.proximoFin]
     
     def titularizar(self):
-        return ["Proximo Fin"]
+        return ["rnd", "Tiempo entre fines","Proximo Fin"]
     
     def setSinProximoFin(self):
         self.proximoFin = ""
@@ -46,9 +52,11 @@ class Llegada():
         self.media = media
         self.desviacion = desviacion
         self.primerRndUsado = False
+        self.seAgotoElUsoDelVector = False
         self.vRnd = []
         self.crearVrnd()
-        self.proximaLlegada = 0
+        self.proximaLlegada = ""
+        self.tiempoEntreLlegadas = ""
         self.generarProximaLlegada(0)
 
     def crearVrnd(self):
@@ -60,33 +68,40 @@ class Llegada():
                 break
 
     def vectorizar(self):
-        return [self.proximaLlegada]
+        
+        if self.seGeneroLlegada:
+            self.seGeneroLlegada = False
+            return [self.vRndLindo(), self.tiempoEntreLlegadas,self.proximaLlegada]
+        return ["", "", self.proximaLlegada]
     
-    
+    def vRndLindo(self):
+        vRndLindo = f'{self.vRnd[0]} , {self.vRnd[1]} '
+        return vRndLindo
     
     def titularizar(self):
-        return ["Proxima llegada"]
+        return ["V RND", "T entre llegadas", "Proxima llegada"]
     
     def getProxLlegada(self):
         return self.proximaLlegada
 
 
     def generarProximaLlegada(self, reloj):
+        self.seGeneroLlegada = True
         if self.primerRndUsado == False:
             self.primerRndUsado = True
             x1 = round((math.sqrt(-2 * math.log(self.vRnd[0], math.e)) * math.cos(2 * math.pi * self.vRnd[1])) * self.desviacion + self.media,4)
-            tiempoEntreLlegadas = x1
-            self.proximaLlegada = round(abs(tiempoEntreLlegadas) + reloj,4) #Agrego el absoluto porque no me pueden dar numeros negativos
-            return x1
+            self.tiempoEntreLlegadas = abs(x1)
+            self.proximaLlegada = round(abs(self.tiempoEntreLlegadas) + reloj,4) #Agrego el absoluto porque no me pueden dar numeros negativos
+            
         
         else:
             x2 = round((math.sqrt(-2 * math.log(self.vRnd[0], math.e)) * math.sin(2 * math.pi * self.vRnd[1]))* self.desviacion + self.media,2) 
             self.crearVrnd()
             self.primerRndUsado = False
-            tiempoEntreLlegadas = x2
-            self.proximaLlegada = round(abs(tiempoEntreLlegadas) + reloj,4) #Agrego el absoluto porque no me pueden dar numeros negativos
+            self.tiempoEntreLlegadas = abs(x2)
+            self.proximaLlegada = round(abs(self.tiempoEntreLlegadas) + reloj,4) #Agrego el absoluto porque no me pueden dar numeros negativos
 
-            return x2  
+            
 
 
     
